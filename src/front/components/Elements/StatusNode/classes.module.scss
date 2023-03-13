@@ -1,0 +1,62 @@
+@import "@Themes/constants.scss";
+
+.StatusViewHeader {
+    padding: 10px 40px 20px 40px;
+
+
+    .StatusViewIndicatorGreen {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin-right: 20px;
+        background: #17d766;
+        opacity: 0.8;
+        filter: alpha(opacity=80);
+    }
+
+    .StatusViewIndicatorGreenLittle {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        margin-right: 10px;
+        background: #17d766;
+        opacity: 0.8;
+        filter: alpha(opacity=80);
+    }
+
+    .StatusViewIndicatorRed {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin-right: 20px;
+        background: #ff0000;
+        opacity: 0.8;
+        filter: alpha(opacity=80);
+    }
+
+    .StatusViewIndicatorRedLittle {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        margin-right: 10px;
+        background: #ff0000;
+        opacity: 0.8;
+        filter: alpha(opacity=80);
+    }
+
+    .StatusViewTitle {
+        font-size: 1.5em;
+        display: inline-block;
+    }
+
+    .StatusViewSubtitle {
+        display: block;
+        margin-left: 35px;
+        font-style: italic;
+        color: grey;
+    }
+}

@@ -1,0 +1,43 @@
+@import "@Themes/constants.scss";
+
+.root {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  @media (max-width: 900px) {
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: initial;
+    margin: 40px 0;
+  }
+
+  &.reverse {
+    flex-direction: row-reverse;
+  }
+
+  .title {
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 32px;
+    color: $primaryColor;
+  }
+
+  .description {
+    font-size: 18px;
+    line-height: 22px;
+    text-align: justify;
+    font-weight: 300;
+  }
+
+  .img {
+    width: 477px;
+    height: 477px;
+
+    @media (max-width: 900px) {
+      width: 300px;
+      height: 300px;
+    }
+  }
+}

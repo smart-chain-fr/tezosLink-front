@@ -1,0 +1,15 @@
+@import "@Themes/constants.scss";
+
+.root {
+	margin: var(--root-margin);
+	padding: var(--root-padding);
+	max-width: var(--root-max-width);
+
+	@media screen and (max-width: $screen-m) {
+		padding: 0 24px;
+	}
+
+	@media screen and (max-width: $screen-s) {
+		padding: 0 16px;
+	}
+}

@@ -1,0 +1,21 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+    margin: 100px auto 20px auto;
+    font-size: 4em;
+    text-align: center;
+    will-change: opacity, transform;
+    animation: fadeInFromTop 500ms;
+
+    .text {
+        margin: 20px auto 20px auto;
+        font-size: 0.5em;
+        text-align: center;
+    }
+
+    .home-button {
+        margin: 50px auto;
+        max-width: 150px;
+    }
+}

@@ -1,0 +1,15 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+
+.code {
+    background-color: $backgroundColor;
+    border-radius: 2px;
+    color: $primaryColor;
+    -moz-osx-font-smoothing: auto;
+    -webkit-font-smoothing: auto;
+    font-family: monospace;
+    padding: 0.25em 0.5em;
+    margin-bottom: 15px;
+    word-break: break-all;
+}

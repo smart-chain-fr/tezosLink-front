@@ -1,0 +1,76 @@
+@import "@Themes/constants.scss";
+@import "./animation.scss";
+
+
+.root {
+
+	position: fixed;
+	left: 18px;
+	top: 23px;
+	overflow: visible;
+	margin: 0;
+	height: 14px;
+	box-sizing: content-box;
+	cursor: pointer;
+	z-index: 11;
+
+	.box {
+		position: relative;
+		display: inline-block;
+		width: 24px;
+		height: 14px;
+	}
+
+	.inner {
+		position: absolute;
+		width: 24px;
+		height: 1px;
+		border-radius: 1px;
+		will-change: transform;
+		background-color: $textColor;
+	}
+
+
+
+	.inner-top {
+		top: 0;
+
+		&.true {
+			animation: BurgerTopForward 0.2s cubic-bezier(.43,1.89,.68,.28);
+			animation-fill-mode: forwards;
+		}
+
+		&.false {
+			animation: BurgerTopBackward 0.2s cubic-bezier(.43,1.89,.68,.28);
+			animation-fill-mode: forwards;
+		}
+	}
+
+	.inner-middle {
+		display: block;
+		top: calc(50% - 1px);
+
+		&.true {
+			background-color: $placeholderColor;
+		}
+
+		&.false {
+			background-color: $textColor;
+		}
+	}
+
+	.inner-bottom {
+		bottom: 1px;
+
+		&.true {
+			animation: BurgerBottomForward 0.2s cubic-bezier(.43,1.89,.68,.28);
+			animation-fill-mode: forwards;
+		}
+
+		&.false {
+			animation: BurgerBottomBackward 0.2s cubic-bezier(.43,1.89,.68,.28);
+			animation-fill-mode: forwards;
+		}
+	}
+
+}

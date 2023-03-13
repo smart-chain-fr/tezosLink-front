@@ -1,0 +1,41 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+    width: 80%;
+    max-width: 1140px;
+    margin: 100px auto 20px auto;
+    display: grid;
+    grid-template-columns: 25% calc(75% - 20px);
+    grid-gap: 20px;
+
+    .menu {
+        margin-bottom: 20px;
+        padding: 20px 20px 10px 20px;
+        border-radius: 6px;
+        background: $backgroundColor2;
+        box-shadow: 0 1px 10px $shadowColor;
+        margin: auto;
+    }
+
+    .content {
+        margin-bottom: 20px;
+        padding: 20px 20px 10px 20px;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        border-radius: 6px;
+        background: $backgroundColor2;
+        box-shadow: 0 1px 10px $shadowColor;
+        margin: auto;
+    }
+
+    .left-side {
+        will-change: opacity, transform;
+        animation: fadeInFromLeft 500ms;
+    }
+
+    .right-side {
+        will-change: opacity, transform;
+        animation: fadeInFromRight 500ms;
+    }
+}

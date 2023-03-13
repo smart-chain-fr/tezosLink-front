@@ -1,0 +1,143 @@
+@import "@Themes/constants.scss";
+
+.root {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: left;
+  height: 700px;
+  position: relative;
+
+  h1 {
+    margin: 20px 0 10px 0;
+  }
+
+
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+
+
+  .left-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+
+    .left-content {
+      height: 400px;
+
+      .button {
+        width: 40%;
+      }
+    }
+  }
+
+  .right-panel {
+    position: relative;
+
+    @media (max-width: 900px) {
+      display: none;
+    }
+
+    >img {
+      position: absolute;
+      bottom: 00px;
+      left: 100px;
+    }
+
+    @keyframes breathing {
+      0% {
+        opacity: 0.65;
+      }
+
+      25% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.65;
+      }
+
+      75% {
+        opacity: 0.3;
+      }
+
+      100% {
+        opacity: 0.65;
+      }
+    }
+
+    .torus-cables {
+      z-index: 0;
+    }
+
+    .torus-bg {
+      z-index: 1;
+    }
+
+    .torus-fg {
+      z-index: 3;
+    }
+
+    .torus-logo {
+      z-index: 4;
+    }
+
+    .torus-logo,
+    .torus-cables {
+      animation: breathing 3s linear infinite normal;
+    }
+
+    @keyframes shooting {
+      0% {
+        transform: translate(0px, 171px);
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      80% {
+        transform: translate(300px, 0px);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(300px, 0px);
+        opacity: 0;
+      }
+    }
+
+    .meteor {
+      width: 165px;
+      height: 100px;
+      z-index: 2;
+      position: absolute;
+      left: -70px;
+      opacity: 0;
+      animation: shooting 1.5s linear infinite;
+
+      &.meteor1 {
+        bottom: 250px;
+        animation-delay: 0s;
+      }
+
+      &.meteor2 {
+        bottom: 200px;
+        animation-delay: 0.3s;
+      }
+
+      &.meteor3 {
+        bottom: 300px;
+        animation-delay: 0.5s;
+      }
+
+      &.meteor4 {
+        bottom: 280px;
+        animation-delay: 0.9s;
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+@import "@Themes/constants.scss";
+
+@keyframes clickWave {
+    from {
+        box-shadow: 0 0 0 0 $primaryColor;
+    }
+
+    to {
+        box-shadow: 0 0 0 2px $primaryColor;
+    }
+}
+
+.root {
+    height: 36px;
+    text-align: center;
+    border: none;
+    font-family: 'Proxima Nova', Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 6px;
+    will-change: box-shadow;
+    width: 100%;
+    user-select: none;
+
+    &.clicked {
+        animation: clickWave 500ms cubic-bezier(0.19, 1, 0.22, 1);
+        animation-fill-mode: forwards;
+    }
+
+    &.primary {
+        color: $backgroundColor;
+        background-color: $primaryColor;
+    }
+
+    &.secondary {
+        color: white;
+        background-color: $secondaryColor;
+    }
+
+    &.transparent {
+        color: $textColor;
+        background-color: initial;
+    }
+
+    &.loading {
+        pointer-events: none;
+        opacity: 0.8;
+    }
+}
+
+.text {
+    text-align: center;
+    margin: auto;
+    display: inline-block;
+    line-height: 36px;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: sub;
+    margin-left: 15px;
+    
+    &.primary {
+        filter: brightness(0) saturate(100%) invert(15%) sepia(23%) saturate(909%) hue-rotate(194deg) brightness(98%) contrast(90%);
+    }
+}
+
+@keyframes turn {
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+@keyframes path {
+  100% {
+      stroke-dashoffset: 0;
+  }
+}
+
+.ButtonLoadingIcon {
+    width: 16px;
+    height: 16px;
+    margin-left: 15px;
+    vertical-align: sub;
+    stroke: white;
+    stroke-width: 1px;
+    stroke-dashoffset: 94.248;
+    stroke-dasharray: 47.124;
+    animation: turn 1.6s linear infinite forwards, path 1.6s linear infinite forwards;
+}

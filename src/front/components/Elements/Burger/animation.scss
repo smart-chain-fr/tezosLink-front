@@ -1,0 +1,39 @@
+@keyframes BurgerTopForward {
+    0% {
+        transform: translate3d(0px, 0px, 0) rotate(0deg) scaleX(1);
+    }
+
+    100% {
+        transform: translate3d(-8.000023662749896px, 2.000005915687474px, 0) rotate(-45.000133102968164deg) scaleX(0.4999985210781315)
+    }
+}
+
+@keyframes BurgerTopBackward {
+    0% {
+        transform: translate3d(-8.000023662749896px, 2.000005915687474px, 0) rotate(-45.000133102968164deg) scaleX(0.4999985210781315)
+    }
+
+    100% {
+        transform: translate3d(0px, 0px, 0) rotate(0deg) scaleX(1);
+    }
+}
+
+@keyframes BurgerBottomForward {
+    0% {
+        transform: translate3d(0px, 0px, 0) rotate(0deg) scaleX(1);
+    }
+
+    100% {
+        transform: translate3d(-8.000023662749896px, -2.000005915687474px, 0) rotate(45.000133102968164deg) scaleX(0.4999985210781315);
+    }
+}
+
+@keyframes BurgerBottomBackward {
+    0% {
+        transform: translate3d(-8.000023662749896px, -2.000005915687474px, 0) rotate(45.000133102968164deg) scaleX(0.4999985210781315);
+    }
+
+    100% {
+        transform: translate3d(0px, 0px, 0) rotate(0deg) scaleX(1);
+    }
+}

@@ -1,0 +1,45 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+    .list {
+        list-style: none;
+        counter-reset: my-counter;
+        padding-inline-start: 20px;
+        overflow: hidden;
+    }
+
+    .item {
+        margin: 5px 5px 5px 0px;
+        padding: 5px 5px 5px 5px;
+        counter-increment: my-counter;
+        list-style-position: inside;
+        -space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        background-color: $secondaryColor;
+        border-radius: 2px;
+        color: #d4d4d4;
+        width: 500px;
+
+        &::before {
+            content: counter(my-counter) '. ';
+            color: $primaryColor;
+            font-weight: bold;
+            margin-right: 5px;
+            font-size: 1.3em;
+        }
+
+        &:first-child {
+            font-size: 1.5em;
+        }
+    }
+
+    .tooltip {
+        overflow-y: hidden;
+        text-overflow: ellipsis;
+        position: fixed;
+        margin: 5px 0 0 5px;
+        display: inline-block;
+    }
+}
