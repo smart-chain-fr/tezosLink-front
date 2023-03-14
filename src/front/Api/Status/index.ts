@@ -1,4 +1,4 @@
-import BaseApiService from "@Front/Api/BaseApiService";
+import BaseApiService from "@/front/api/BaseApiService";
 import { Service } from "typedi";
 
 interface IHttpReponse {

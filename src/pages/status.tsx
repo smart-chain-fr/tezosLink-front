@@ -1,5 +1,5 @@
 
-import Status from "@Front/Api/Status";
+import Status from "@/front/api/Status";
 import StatusLayout, { IProps } from "@Front/components/Layouts/Status";
 import { FrontendVariables } from "@Front/config/VariablesFront";
 import { GetServerSideProps } from "next";

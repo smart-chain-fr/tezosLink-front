@@ -8,7 +8,7 @@ import icon from "@Assets/icons/user.svg";
 import InputField from "../../Elements/InputField";
 import { Button } from "@Components/Elements/Button";
 import SignUpIcon from "@Assets/icons/sign-up.svg";
-import Project from "@Front/Api/Project";
+import Project from "@/front/api/Project";
 
 type IState = {
   network: string;

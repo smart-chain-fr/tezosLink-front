@@ -1,5 +1,6 @@
-import { IProject } from "@Front/interfaces/interfaces";
-import BaseApiService from "@Front/Api/BaseApiService";
+
+import BaseApiService from "@/front/api/BaseApiService";
+import { IProject } from "@/front/interfaces/Interfaces";
 
 type IPostProject = {
 	title: string;

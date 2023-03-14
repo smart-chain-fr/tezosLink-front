@@ -1,4 +1,4 @@
-import { FrontendVariables } from "@Front/config/VariablesFront";
+import getConfig from "next/config";
 
 
 export enum ContentType {
@@ -8,11 +8,10 @@ export enum ContentType {
 
 export default abstract class BaseApiService {
 	private static baseUrl: string;
-	private static variables: FrontendVariables;
 	protected constructor() {
-		BaseApiService.variables ??= FrontendVariables.getInstance();
-		BaseApiService.baseUrl ??= BaseApiService.variables.NEXT_PUBLIC_API_URL;
-		console.log("BaseApiService", BaseApiService.baseUrl);
+		const { publicRuntimeConfig } = getConfig();
+		BaseApiService.baseUrl ??= publicRuntimeConfig.NEXT_PUBLIC_API_URL;
+		console.log("publicRuntimeConfig", BaseApiService.baseUrl);
 	}
 
 	protected getBaseUrl() {

@@ -1,5 +1,5 @@
 import Dashboard from "@Front/components/Layouts/Dashboard";
-import { IProject } from "@Front/interfaces/interfaces";
+import { IProject } from "@/front/interfaces/Interfaces";
 import { GetServerSideProps } from "next";
 import {
   getLastRequest,
@@ -7,7 +7,7 @@ import {
   getRpcUsage,
 } from "@Front/components/Layouts/Dashboard/extractData";
 import { isUUID } from "class-validator";
-import Project from "@Front/Api/Project";
+import Project from "@/front/api/Project";
 
 type requestByDay = {
   date: Date;
