@@ -1,6 +1,5 @@
-import NewProject, { IProps } from "@Front/components/Layouts/NewProject";
+import NewProject from "@Front/components/Layouts/NewProject";
 
 export default function Route() {
-    return <NewProject />
+  return <NewProject />;
 }
-

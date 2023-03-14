@@ -24,7 +24,7 @@ type IProps = {
   title: string;
   uuid: string;
   firstTime: boolean;
-  requestByDays: requestByDay[]
+  requestByDays: requestByDay[];
   lastRequests: string[];
   rpcUsage: RPCUsage[];
   rpcTotalCount?: number | undefined;

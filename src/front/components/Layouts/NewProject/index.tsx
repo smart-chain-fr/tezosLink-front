@@ -10,7 +10,6 @@ import { Button } from "@Components/Elements/Button";
 import SignUpIcon from "@Assets/icons/sign-up.svg";
 import Project from "@Front/Api/Project";
 
-
 type IState = {
   network: string;
   name: string;
@@ -25,8 +24,6 @@ interface WithRouterProps {
 export interface IProps extends WithRouterProps {}
 
 class NewProject extends BasePage<IProps, IState> {
-
-
   public constructor(props: IProps) {
     super(props);
     this.state = {

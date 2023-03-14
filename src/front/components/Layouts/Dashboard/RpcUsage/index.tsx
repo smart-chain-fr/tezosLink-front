@@ -1,40 +1,40 @@
-import classes from "./classes.module.scss"
-import React from 'react';
+import classes from "./classes.module.scss";
+import React from "react";
 
 // Dynamic import mandatory to avoid the error : window undefined
 // https://stackoverflow.com/questions/68596778/next-js-window-is-not-defined
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 import Card from "@Components/Elements/Card";
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 type RPCUsage = {
-  label: string
-  value: number
-}
+  label: string;
+  value: number;
+};
 
 type IProps = {
-  rpcUsage: RPCUsage[],
-  rpcTotalCount: number | undefined
-}
+  rpcUsage: RPCUsage[];
+  rpcTotalCount: number | undefined;
+};
 
 type IState = {
-  options: ApexCharts.ApexOptions,
-  series: ApexNonAxisChartSeries
-  componentMount: boolean
-}
+  options: ApexCharts.ApexOptions;
+  series: ApexNonAxisChartSeries;
+  componentMount: boolean;
+};
 
-export default class RpcUsage extends React.Component<IProps, IState>{
+export default class RpcUsage extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
     this.state = {
       options: {
-        labels: this.props.rpcUsage.map(element => element.label),
+        labels: this.props.rpcUsage.map((element) => element.label),
         legend: {
-          show: false
+          show: false,
         },
         stroke: {
-          show: false
+          show: false,
         },
         dataLabels: {
           enabled: false,
@@ -42,50 +42,59 @@ export default class RpcUsage extends React.Component<IProps, IState>{
         plotOptions: {
           pie: {
             donut: {
-              size: '75%',
+              size: "75%",
               labels: {
                 show: true,
                 value: {
-                  color: 'grey',
-                  fontSize: '2.5em'
+                  color: "grey",
+                  fontSize: "2.5em",
                 },
                 total: {
                   showAlways: true,
                   show: true,
                   label: "TOTAL REQUESTS",
-                  color: 'grey',
-                  fontSize: '1em'
-                }
-              }
-            }
-          }
-        }
+                  color: "grey",
+                  fontSize: "1em",
+                },
+              },
+            },
+          },
+        },
       },
-      series: this.props.rpcUsage.map(element => element.value),
-      componentMount: false
+      series: this.props.rpcUsage.map((element) => element.value),
+      componentMount: false,
     };
     this.renderContent = this.renderContent.bind(this);
   }
 
   public override render() {
-    return (<div className={classes["root"]}>
-        <Card title="rpc usage" content={<this.renderContent />} data={this.props.rpcUsage.length > 0} />
-    </div>)
+    return (
+      <div className={classes["root"]}>
+        <Card
+          title="rpc usage"
+          content={<this.renderContent />}
+          data={this.props.rpcUsage.length > 0}
+        />
+      </div>
+    );
   }
 
-  private renderContent() : JSX.Element {
-    return <>
-            <div className={classes["container"]}>
-              {this.state.componentMount === true &&
-                <Chart options={this.state.options}
-                  series={this.state.series}
-                  type='donut'
-                  height='160%'
-                  width='100%'
-                />
-              }
-            </div>
-          </>
+  private renderContent(): JSX.Element {
+    return (
+      <>
+        <div className={classes["container"]}>
+          {this.state.componentMount === true && (
+            <Chart
+              options={this.state.options}
+              series={this.state.series}
+              type="donut"
+              height="160%"
+              width="100%"
+            />
+          )}
+        </div>
+      </>
+    );
   }
 
   override componentDidMount(): void {
