@@ -9,6 +9,7 @@ import RequestsByDay from "./RequestsByDay";
 import RpcUsage from "./RpcUsage";
 import ModalCreatedProject from "./ModalCreatedProject";
 import MonthlyRequests from "./MonthlyRequests";
+import Newsletter from "./Newsletter";
 
 type IState = {
   showModal: boolean;
@@ -57,15 +58,14 @@ export default class Dashboard extends BasePage<IProps, IState> {
               <ProjectName name={this.props.title} />
             </div>
           </div>
-          <RequestsByDay requestsByDays={null} />
-          <MonthlyRequests monthlyRequests={null} />
-          <RpcUsage
-            rpcTotalCount={null}
-            rpcUsage={null}
-          />
-           <LastRequests lastRequests={null} />
-          <ProjectToken token={this.props.uuid} />
-
+          <div className={classes["content"]}>
+            <RequestsByDay requestsByDays={null} />
+            <MonthlyRequests monthlyRequests={null} />
+            <RpcUsage rpcTotalCount={null} rpcUsage={null} />
+            <LastRequests lastRequests={null} />
+            <ProjectToken token={this.props.uuid} />
+            <Newsletter />
+          </div>
         </div>
         {this.state.showModal && (
           <ModalCreatedProject

@@ -1,0 +1,72 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+  min-width: 384px;
+
+  .header {
+    border-radius: 6px;
+    background-color: $secondaryColor;
+    margin-bottom: 16px;
+    padding: 10px 20px;
+    width: 100%;
+    text-transform: uppercase;
+  }
+
+  .content {
+    padding: 24px;
+    background-color: $backgroundColor2;
+    box-shadow: 0px 1px 10px rgba(39, 43, 64, 0.5);
+    border-radius: 6px;
+
+    .content-header {
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      .link {
+        text-decoration: underline;
+        color: $primaryColor;
+        a,
+        a:visited {
+          color: $primaryColor;
+        }
+      }
+    }
+
+    .pod-info {
+      background: $backgroundColor;
+      border: 1px solid $borderColor;
+      border-radius: 8px;
+      height: 170px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+
+      .info-container {
+        display: flex;
+        flex-direction: row;
+        gap: 24px;
+        .info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            align-items: center;
+    
+            &[data-info="active"] {
+              color: $primaryColor;
+            }
+          }
+    
+          .separator {
+            height: 50px;
+            width: 1px;
+            background-color: #778699;
+          }
+      }
+    }
+  }
+}
