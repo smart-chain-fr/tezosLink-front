@@ -1,6 +1,7 @@
 
 import BaseApiService from "@/api/BaseApiService";
-import { IProject } from "@/interfaces/Interfaces";
+import { IProject } from "@/interfaces/interfaces";
+
 
 type IPostProject = {
 	title: string;

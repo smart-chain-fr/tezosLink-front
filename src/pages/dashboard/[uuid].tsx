@@ -8,7 +8,7 @@ import {
 } from "@/components/Layouts/Dashboard/extractData";
 import { isUUID } from "class-validator";
 import Project from "@/api/Project";
-import { IProject } from "@/interfaces/Interfaces";
+import { IProject } from "@/interfaces/interfaces";
 
 
 type requestByDay = {
