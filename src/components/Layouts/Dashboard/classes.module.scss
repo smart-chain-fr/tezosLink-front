@@ -1,0 +1,24 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+  .header {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 14px;
+    .title{
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .network-button-container {
+      width: 150px;
+    }
+  }
+}

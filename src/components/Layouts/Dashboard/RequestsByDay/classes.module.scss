@@ -1,0 +1,12 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+    .title {
+        text-transform: uppercase;
+        font-size: large;
+        margin-left: 10px;
+        color: white;
+    }
+
+}

@@ -1,0 +1,10 @@
+@import "@Themes/constants.scss";
+
+.content {
+  padding: 78.5px 67.5px;
+  border: 1px solid #272b40;
+  border-radius: 8px;
+  background-color: $backgroundColor;
+  color: $primaryColor;
+  text-align: center;
+}

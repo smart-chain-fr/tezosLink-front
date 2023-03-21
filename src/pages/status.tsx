@@ -1,7 +1,7 @@
 
-import Status from "@/front/api/Status";
-import StatusLayout, { IProps } from "@Front/components/Layouts/Status";
-import { FrontendVariables } from "@Front/config/VariablesFront";
+import Status from "@/api/Status";
+import StatusLayout, { IProps } from "@/components/Layouts/Status";
+import { FrontendVariables } from "@/config/VariablesFront";
 import { GetServerSideProps } from "next";
 
 export default function Route(props: IProps) {

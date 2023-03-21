@@ -41,16 +41,13 @@
         "./src/*"
       ],
       "@Themes/*": [
-        "./src/front/themes/*"
+        "./src/themes/*"
       ],
       "@Assets/*": [
-        "./src/front/assets/*"
+        "./src/assets/*"
       ],
       "@Components/*": [
-        "./src/front/components/*"
-      ],
-      "@Front/*": [
-        "./src/front/*"
+        "./src/components/*"
       ],
     }
   },
