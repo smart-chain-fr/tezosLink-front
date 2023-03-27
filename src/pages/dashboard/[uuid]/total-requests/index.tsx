@@ -15,8 +15,6 @@ const DynamicTotalRequest = dynamic(() => import('@/components/TotalRequests'), 
 export default function Route(currentProject: IProject) {
   const props: IProps = {
     uuid: currentProject.uuid,
-    data: [],
-    metadata: { count: 0, limit: 0, offset: 0, total: 0 },
   };
   return <DynamicTotalRequest {...props} />;
 }
