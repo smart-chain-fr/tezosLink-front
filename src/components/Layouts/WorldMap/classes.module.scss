@@ -1,0 +1,28 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+  .header {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 14px;
+    .title{
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+  }
+
+  .content {
+    border-radius: 6px;
+    width: 100%;
+    background-color: $backgroundColor2;
+    height: 630px;
+  }
+}

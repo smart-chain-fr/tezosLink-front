@@ -1,4 +1,4 @@
-import Documentation from "@Front/components/Layouts/Documentation";
+import Documentation from "@/components/Layouts/Documentation";
 
 type IProps = {
   menu: string;

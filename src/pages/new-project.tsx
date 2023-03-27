@@ -1,4 +1,4 @@
-import NewProject from "@Front/components/Layouts/NewProject";
+import NewProject from "@/components/Layouts/NewProject";
 import { GetServerSideProps } from "next";
 
 export default function Route() {

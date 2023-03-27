@@ -1,4 +1,4 @@
-import ProjectNotFound from "@Front/components/Layouts/ProjectNotFound"
+import ProjectNotFound from "@/components/Layouts/ProjectNotFound"
 
 export default function Route() {
     return <ProjectNotFound/>
