@@ -1,0 +1,53 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Proxima Nova";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  border: 1px solid $borderColor;
+  border-radius: 24px;
+  width: 94px;
+  height: 25px;
+
+  background-color: $backgroundColor;
+
+  &[data-clickable="true"] {
+    cursor: pointer;
+    border: 1px solid $borderColor;
+    border-radius: 6px;
+    width: 119.5px;
+    padding: 9px 25.5px;
+    height: 35px;
+  }
+
+  &[data-active="true"] {
+    background: rgba(237, 29, 37, 0.1);
+    border-color: #ed1d25;
+  }
+
+    // [data-status="completed"] & {
+  //   background: rgba(66, 182, 232, 0.1);
+  //   border-color: #42b6e8;
+  // }
+
+  // [data-status="failed"] & {
+  //   background: rgba(237, 29, 37, 0.1);
+  //   border-color: #ed1d25;
+  // }
+
+  // [data-status="successful"] & {
+  //   background: rgba(23, 215, 102, 0.1);
+  //   border-color: #17d766;
+  // }
+
+  .content {
+    text-transform: capitalize;
+  }
+}

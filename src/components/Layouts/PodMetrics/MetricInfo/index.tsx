@@ -8,7 +8,8 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 type IProps = {
   title: string;
-  data: [];
+  options: ApexCharts.ApexOptions | null;
+  series: ApexAxisChartSeries | ApexNonAxisChartSeries | null;
 };
 export default class MetricInfo extends React.Component<IProps> {
   public constructor(props: any) {
@@ -20,7 +21,15 @@ export default class MetricInfo extends React.Component<IProps> {
       <div className={classes["root"]}>
         <div className={classes["header"]}>{this.props.title}</div>
         <div className={classes["content"]}>
-          {/* <Chart type="line" height="95%" width="100%" /> */}
+          {this.props.options && this.props.series && (
+            <Chart
+              options={this.props.options}
+              series={this.props.series}
+              type="line"
+              height="95%"
+              width="100%"
+            />
+          )}
         </div>
       </div>
     );

@@ -4,11 +4,11 @@ import classNames from "classnames";
 
 type IProps = {
   options: string[];
-  defaultOption: string;
+  defaultOption?: string;
   selectCallback: (option: string | undefined) => void;
 };
 type IState = {
-  selectedIndex: number;
+  selectedIndex: number | undefined;
   open: string;
 };
 
@@ -16,7 +16,9 @@ export default class Selector extends React.Component<IProps, IState> {
   public constructor(props: IProps) {
     super(props);
     this.state = {
-      selectedIndex: this.props.options.indexOf(this.props.defaultOption) || 0,
+      selectedIndex: this.props.defaultOption
+        ? this.props.options.indexOf(this.props.defaultOption)
+        : undefined,
       open: "close",
     };
     this.handleClick = this.handleClick.bind(this);
@@ -34,9 +36,12 @@ export default class Selector extends React.Component<IProps, IState> {
         </select>
         <div className={classes["selector"]}>
           <em></em>
+
           <ul
             style={{
-              transform: `translateY(-${this.state.selectedIndex * 36}px)`,
+              transform: `translateY(-${
+                (this.state.selectedIndex ?? 0) * 36
+              }px)`,
             }}
           >
             {this.props.options.map((option) => (
@@ -46,7 +51,7 @@ export default class Selector extends React.Component<IProps, IState> {
         </div>
         <ul
           style={{
-            transform: `translateY(-${this.state.selectedIndex * 36}px)`,
+            transform: `translateY(-${(this.state.selectedIndex ?? 0) * 36}px)`,
           }}
         >
           {this.props.options.map((option, i) => (

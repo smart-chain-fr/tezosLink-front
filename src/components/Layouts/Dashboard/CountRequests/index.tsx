@@ -1,14 +1,15 @@
 import classes from "./classes.module.scss";
 import React from "react";
 import Card from "@Components/Elements/Card";
+import { IResponseCountRequests } from "@/api/Metric";
 
 type IProps = {
-  monthlyRequests: number | null;
+  count: IResponseCountRequests | null;
 };
 
 type IState = {};
 
-export default class MonthlyRequests extends React.Component<IProps, IState> {
+export default class CountRequests extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
@@ -20,9 +21,9 @@ export default class MonthlyRequests extends React.Component<IProps, IState> {
     return (
       <div className={classes["root"]}>
         <Card
-          title="Monthly Requests"
+          title="Total Requests"
           content={<this.renderContent />}
-          data={this.props.monthlyRequests !== null}
+          data={this.props.count !== null}
         />
       </div>
     );
@@ -31,7 +32,7 @@ export default class MonthlyRequests extends React.Component<IProps, IState> {
   private renderContent(): JSX.Element {
     return (
       <div className={classes["content"]}>
-        <h1>{this.props.monthlyRequests}</h1>
+        <h1>{this.props.count?.count}</h1>
       </div>
     );
   }

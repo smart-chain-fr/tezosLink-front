@@ -1,9 +1,13 @@
 import classes from "./classes.module.scss";
 import React from "react";
 import Card from "@Components/Elements/Card";
+import Link from "next/link";
+import { IMetric } from "@/interfaces/interfaces";
+import { IResponseRequests } from "@/api/Metric";
 
 type IProps = {
-  lastRequests: string[] | null;
+  lastRequests: IResponseRequests | null;
+  projectUuid: string;
 };
 
 export default class LastRequests extends React.Component<IProps> {
@@ -24,31 +28,34 @@ export default class LastRequests extends React.Component<IProps> {
     );
   }
 
-  private showRequests(request: string, isFirst: boolean) {
-    const stringLength = isFirst ? 40 : 60;
-    if (request.length > stringLength) {
-      return request.substring(0, stringLength) + "...";
+  private showRequests(request: IMetric) {
+    const stringLength = 60;
+    if (request.path.length > stringLength) {
+      return request.path.substring(0, stringLength) + "...";
     }
-    return request;
+    return request.path;
   }
 
   private renderContent(): JSX.Element {
     return (
-      <>
+      <div className={classes["content"]}>
         <div className={classes["list"]}>
           {(this.props.lastRequests ?? [])
             .slice(0, 5)
-            .map((request: string, index: number) => {
+            .map((request: IMetric, index: number) => {
               return (
                 <div className={classes["item"]} key={index}>
-                  <div className={classes["tooltip"]} data-tooltip={request}>
-                    {this.showRequests(request, index === 0)}
-                  </div>
+                  {this.showRequests(request)}
                 </div>
               );
             })}
         </div>
-      </>
+        <div className={classes["link"]}>
+          <Link href={`/dashboard/${this.props.projectUuid}/total-requests`}>
+            See more
+          </Link>
+        </div>
+      </div>
     );
   }
 }

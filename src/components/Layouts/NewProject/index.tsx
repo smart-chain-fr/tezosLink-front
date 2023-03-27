@@ -1,7 +1,6 @@
 import BasePage from "@Components/Layouts/Base";
 import DefaultTemplate from "@Components/LayoutTemplates/DefaultTemplate";
 import classes from "./classes.module.scss";
-import Selector from "./Selector";
 import { NextRouter, withRouter } from "next/router";
 
 import icon from "@Assets/icons/user.svg";
@@ -9,6 +8,7 @@ import InputField from "../../Elements/InputField";
 import { Button } from "@Components/Elements/Button";
 import SignUpIcon from "@Assets/icons/sign-up.svg";
 import Project from "@/api/Project";
+import Selector from "@/components/Elements/Selector";
 
 type IState = {
   network: string;
@@ -93,7 +93,7 @@ class NewProject extends BasePage<IProps, IState> {
           network: this.state.network,
         })
       ).uuid;
-      this.props.router.push("/dashboard/" + uuid + "?ft=true");
+      this.props.router.push("/dashboard/" + uuid);
     }
   }
 

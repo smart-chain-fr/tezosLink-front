@@ -6,6 +6,7 @@ import { Button } from "@Components/Elements/Button";
 import LoginIcon from "@Assets/icons/login.svg";
 import { NextRouter, withRouter } from "next/router";
 
+
 interface IProps {}
 type IState = {
   projectUuid: string;
@@ -69,9 +70,7 @@ class SignInProject extends BasePage<IProps, IState> {
 
   private handleSubmit() {
     if (this.checkUuid(this.state.projectUuid)) {
-      this.props.router.push(
-        "/dashboard/" + this.state.projectUuid + "?ft=false"
-      );
+      this.props.router.push("/dashboard/" + this.state.projectUuid);
     }
   }
 

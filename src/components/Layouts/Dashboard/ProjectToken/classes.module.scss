@@ -2,6 +2,8 @@
 @import "@Themes/animation.scss";
 
 .root {
+    flex-basis: 50%;
+    width: 100%;
     will-change: opacity, transform;
     animation: fadeInFromLeftf 500ms;
     border-radius: 6px;

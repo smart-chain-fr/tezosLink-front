@@ -18,6 +18,8 @@
         user-select: none;
         text-align: left;
         text-transform: none;
+        position: relative;
+
     }
 
     select {
@@ -56,7 +58,7 @@
             transition: color 0.3s ease;
 
             &:hover {
-                color: $textColor C8;
+                color: $textColor;
             }
         }
     }

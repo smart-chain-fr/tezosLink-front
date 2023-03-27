@@ -5,8 +5,10 @@
   .header {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 20px;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     margin-bottom: 14px;
     .title {
@@ -14,7 +16,19 @@
       flex-direction: row;
       gap: 20px;
       align-items: center;
-      flex-wrap: wrap;
+
+      @media (max-width: $screen-m) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+
+      .container-network {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 24px;
+      }
     }
 
     .network-button-container {
@@ -27,5 +41,19 @@
     flex-direction: column;
     gap: 24px;
     margin-bottom: 24px;
+
+
+    .container-row{
+      display: flex;
+      align-items: stretch;
+      flex-direction: row;
+      gap: 24px;
+      width: 100%;
+
+      @media (max-width: $screen-m) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
   }
 }

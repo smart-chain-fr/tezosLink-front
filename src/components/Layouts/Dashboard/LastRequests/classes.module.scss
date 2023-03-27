@@ -2,44 +2,42 @@
 @import "@Themes/animation.scss";
 
 .root {
+  flex: 1;
+  width: 100%;
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .list {
-        list-style: none;
-        counter-reset: my-counter;
-        padding-inline-start: 20px;
-        overflow: hidden;
+      list-style: none;
+      overflow: hidden;
+      margin-bottom: 29px;
     }
-
+  
     .item {
-        margin: 5px 5px 5px 0px;
-        padding: 5px 5px 5px 5px;
-        counter-increment: my-counter;
-        list-style-position: inside;
-        -space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        background-color: $secondaryColor;
-        border-radius: 2px;
-        color: #d4d4d4;
-        width: 500px;
-
-        &::before {
-            content: counter(my-counter) '. ';
-            color: $primaryColor;
-            font-weight: bold;
-            margin-right: 5px;
-            font-size: 1.3em;
-        }
-
-        &:first-child {
-            font-size: 1.5em;
-        }
+      font-family: "Proxima Nova";
+      font-style: normal;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 17px;
+      margin: 5px 5px 5px 0px;
+      padding: 10px;
+  
+      background-color: $secondaryColor;
+      border-radius: 2px;
+      color: #d4d4d4;
+      border-right: 2px solid $primaryColor;
+  
     }
-
-    .tooltip {
-        overflow-y: hidden;
-        text-overflow: ellipsis;
-        position: fixed;
-        margin: 5px 0 0 5px;
-        display: inline-block;
+  
+    .link {
+      text-decoration: underline;
+      color: $primaryColor;
+      a,
+      a:visited {
+        color: $primaryColor;
+      }
     }
+  }
 }
