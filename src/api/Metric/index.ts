@@ -21,7 +21,15 @@ export type IResponseWorldMap = {
   data: { country: string; count: number }[];
 };
 
-export type IResponseRequests = IMetric[];
+export type IResponseRequests = {
+  data: IMetric[];
+  metadata: {
+    count: number;
+    limit: number;
+    offset: number;
+    total: number;
+  };
+};
 
 export type NodeType = "rolling" | "archive";
 
@@ -31,8 +39,6 @@ export enum RequestStatus {
   "SUCCESSFUL" = "successful",
   "FAILED" = "failed",
 }
-
-
 
 export type IGetAllQuery = {
   projectUuid: string;
@@ -45,7 +51,7 @@ export type IGetAllQuery = {
   _limit?: number;
 };
 
-export type IResponsePath = string[]
+export type IResponsePath = string[];
 
 export default class Metric extends BaseApiService {
   private static instance: Metric;
@@ -124,10 +130,8 @@ export default class Metric extends BaseApiService {
     url.searchParams.set("projectUuid", query.projectUuid.toString());
     if (query.from) url.searchParams.set("from", query.from.toString());
     if (query.to) url.searchParams.set("to", query.to.toString());
-    if (query.node)
-      url.searchParams.set("node", query.node.toString());
-    if (query.type)
-      url.searchParams.set("type", query.type.toString());
+    if (query.node) url.searchParams.set("node", query.node.toString());
+    if (query.type) url.searchParams.set("type", query.type.toString());
     if (query.status) url.searchParams.set("status", query.status.toString());
     if (query._page)
       url.searchParams.set("_page", query._page ? query._page.toString() : "1");

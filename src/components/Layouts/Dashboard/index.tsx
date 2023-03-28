@@ -140,6 +140,8 @@ export default class Dashboard extends BasePage<IProps, IState> {
       );
       const lastRequests = await Metric.getInstance().getAll({
         projectUuid: this.props.uuid,
+        from: from.toISOString(),
+        to: to.toISOString(),
       });
       this.setState({
         myRequests,

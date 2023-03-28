@@ -40,7 +40,7 @@ export default class LastRequests extends React.Component<IProps> {
     return (
       <div className={classes["content"]}>
         <div className={classes["list"]}>
-          {(this.props.lastRequests ?? [])
+          {(this.props.lastRequests?.data ?? [])
             .slice(0, 5)
             .map((request: IMetric, index: number) => {
               return (

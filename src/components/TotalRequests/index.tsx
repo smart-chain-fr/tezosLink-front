@@ -95,7 +95,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
                 triggerOnRestPixels={1}
                 rootRef={TotalRequest.scrollRef}
               >
-                {this.state.data?.map((metric: IMetric) => renderRow(metric))}
+                {this.state.data?.data.map((metric: IMetric) => renderRow(metric))}
               </InfinitScrollVertical>
             </table>
             <div className={classes["filters-desktop"]}>
@@ -108,7 +108,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
   }
 
   private submitFilters() {
-    // this.fetchData();
+    this.fetchData();
   }
 
   private async onDateChange(range: DateRange) {
