@@ -29,7 +29,7 @@ export default class StatusLayout extends BasePage<IProps, IState> {
       <DefaultTemplate title={"Status"}>
         <div className={classes["root"]}>
           <div className={classes["content"]}>
-            <h2>Services status</h2>
+            <h2 className={classes["title"]}>Services status</h2>
             <StatusProxy
               proxyStatus={status!.mainnetProxyStatus}
               network={"Mainnet"}

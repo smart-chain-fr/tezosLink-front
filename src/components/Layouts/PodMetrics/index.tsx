@@ -114,58 +114,66 @@ class PodMetrics extends BasePage<IProps, IState> {
   }
 
   public override async componentDidMount() {
-    const pods = await Pod.getInstance().getPods(
-      this.props.podType as IPodType
-    );
-    this.setState({
-      pods,
-    });
+    try {
+      const pods = await Pod.getInstance().getPods(
+        this.props.podType as IPodType
+      );
+      this.setState({
+        pods,
+      });
+    } catch (err) {
+      console.error(err);
+    }
     this.fetchData(this.props.podName);
   }
 
   private async fetchData(podName: string) {
-    const networkInput = await Pod.getInstance().getPodMetrics(
-      podName,
-      "network-input"
-    );
-    const networkOutput = await Pod.getInstance().getPodMetrics(
-      podName,
-      "network-output"
-    );
-    const cpuUsage = await Pod.getInstance().getPodMetrics(
-      podName,
-      "cpu-usage"
-    );
-    const cpuRequested = await Pod.getInstance().getPodMetrics(
-      podName,
-      "cpu-requested"
-    );
-    const cpuLimit = await Pod.getInstance().getPodMetrics(
-      podName,
-      "cpu-limit"
-    );
-    const ramUsage = await Pod.getInstance().getPodMetrics(
-      podName,
-      "ram-usage"
-    );
-    const ramRequested = await Pod.getInstance().getPodMetrics(
-      podName,
-      "ram-requested"
-    );
-    const ramLimit = await Pod.getInstance().getPodMetrics(
-      podName,
-      "ram-limit"
-    );
-    this.setState({
-      networkInput,
-      networkOutput,
-      cpuUsage,
-      cpuRequested,
-      cpuLimit,
-      ramUsage,
-      ramRequested,
-      ramLimit,
-    });
+    try {
+      const networkInput = await Pod.getInstance().getPodMetrics(
+        podName,
+        "network-receive"
+      );
+      const networkOutput = await Pod.getInstance().getPodMetrics(
+        podName,
+        "network-transmit"
+      );
+      const cpuUsage = await Pod.getInstance().getPodMetrics(
+        podName,
+        "cpu-usage"
+      );
+      const cpuRequested = await Pod.getInstance().getPodMetrics(
+        podName,
+        "cpu-requested"
+      );
+      const cpuLimit = await Pod.getInstance().getPodMetrics(
+        podName,
+        "cpu-limit"
+      );
+      const ramUsage = await Pod.getInstance().getPodMetrics(
+        podName,
+        "ram-usage"
+      );
+      const ramRequested = await Pod.getInstance().getPodMetrics(
+        podName,
+        "ram-requested"
+      );
+      const ramLimit = await Pod.getInstance().getPodMetrics(
+        podName,
+        "ram-limit"
+      );
+      this.setState({
+        networkInput,
+        networkOutput,
+        cpuUsage,
+        cpuRequested,
+        cpuLimit,
+        ramUsage,
+        ramRequested,
+        ramLimit,
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   private handleChangeSelector(value?: string) {
@@ -181,6 +189,7 @@ class PodMetrics extends BasePage<IProps, IState> {
       },
       stroke: {
         curve: "smooth",
+        width: 2,
         colors: ["#42E8E0", "#FCB13B"],
       },
       markers: {
@@ -252,6 +261,7 @@ class PodMetrics extends BasePage<IProps, IState> {
       },
       stroke: {
         curve: "smooth",
+        width: 2,
         colors: ["#42E8E0", "#FCB13B", "#709587"],
       },
       markers: {
@@ -329,6 +339,7 @@ class PodMetrics extends BasePage<IProps, IState> {
       },
       stroke: {
         curve: "smooth",
+        width: 2,
         colors: ["#42E8E0", "#FCB13B", "#709587"],
       },
       markers: {

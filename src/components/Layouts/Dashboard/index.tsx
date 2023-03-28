@@ -122,30 +122,34 @@ export default class Dashboard extends BasePage<IProps, IState> {
   }
 
   private async fetchData(from: Date, to: Date) {
-    const myRequests = await Metric.getInstance().getMyRequestMetrics(
-      this.props.uuid,
-      from.toISOString(),
-      to.toISOString()
-    );
-    const countRequests = await Metric.getInstance().countRequests(
-      this.props.uuid,
-      from.toISOString(),
-      to.toISOString()
-    );
-    const typeOfRequests = await Metric.getInstance().getTypeOfRequests(
-      this.props.uuid,
-      from.toISOString(),
-      to.toISOString()
-    );
-    const lastRequests = await Metric.getInstance().getAll({
-      projectUuid: this.props.uuid,
-    });
-    this.setState({
-      myRequests,
-      countRequests,
-      typeOfRequests,
-      lastRequests,
-    });
+    try {
+      const myRequests = await Metric.getInstance().getMyRequestMetrics(
+        this.props.uuid,
+        from.toISOString(),
+        to.toISOString()
+      );
+      const countRequests = await Metric.getInstance().countRequests(
+        this.props.uuid,
+        from.toISOString(),
+        to.toISOString()
+      );
+      const typeOfRequests = await Metric.getInstance().getTypeOfRequests(
+        this.props.uuid,
+        from.toISOString(),
+        to.toISOString()
+      );
+      const lastRequests = await Metric.getInstance().getAll({
+        projectUuid: this.props.uuid,
+      });
+      this.setState({
+        myRequests,
+        countRequests,
+        typeOfRequests,
+        lastRequests,
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   private closeModal() {

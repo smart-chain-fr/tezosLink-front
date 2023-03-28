@@ -108,7 +108,6 @@ export default class TotalRequest extends BasePage<IProps, IState> {
   }
 
   private submitFilters() {
-    console.log(this.state);
     // this.fetchData();
   }
 

@@ -3,6 +3,12 @@
 .StatusViewHeader {
     padding: 10px 40px 20px 40px;
 
+    @media (max-width: $screen-m) {
+        padding: 10px;
+        
+    }
+
+
 
     .StatusViewIndicatorGreen {
         display: inline-block;

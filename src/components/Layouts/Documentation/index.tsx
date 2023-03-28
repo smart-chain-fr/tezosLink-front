@@ -1,25 +1,30 @@
 import BasePage from "@Components/Layouts/Base";
 import DefaultTemplate from "@Components/LayoutTemplates/DefaultTemplate";
 import classNames from "classnames";
+import React from "react";
 import classes from "./classes.module.scss";
+import ReactMarkdown from "react-markdown"
 
 type IProps = {
   menu: string;
   content: string;
 };
 
-type IState = {
-  menu: any;
-  content: any;
-};
+type IState = {};
+
+// function flatten(text: string, child: any): boolean {
+//   return typeof child === 'string' ? text + child : React.Children.toArray(child.props.children).reduce(flatten, text)
+// }
+// function HeadingRenderer(props: any) {
+//   const children = React.Children.toArray(props.children)
+//   const text = children.reduce(flatten, '')
+//   const slug = text.toLowerCase().replace(/\W/g, '-')
+//   return React.createElement('h' + props.level, { id: slug }, props.children)
+// }
 
 export default class Documentation extends BasePage<IProps, IState> {
   public constructor(props: IProps) {
     super(props);
-    this.state = {
-      menu: "",
-      content: "",
-    };
   }
 
   public override render(): JSX.Element {
@@ -28,12 +33,12 @@ export default class Documentation extends BasePage<IProps, IState> {
         <div className={classes["root"]}>
           <div className={classNames(classes["left-side"], classes["menu"])}>
             <h2>Getting started</h2>
-            <div dangerouslySetInnerHTML={{ __html: this.state.menu }} />
+            <ReactMarkdown className={'markdown'} >{this.props.menu}</ReactMarkdown>
           </div>
           <div
             className={classNames(classes["right-side"], classes["content"])}
           >
-            <div dangerouslySetInnerHTML={{ __html: this.state.content }} />
+            <ReactMarkdown className={'markdown'} >{this.props.content}</ReactMarkdown>
           </div>
         </div>
       </DefaultTemplate>

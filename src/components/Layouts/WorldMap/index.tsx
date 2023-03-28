@@ -65,8 +65,12 @@ export default class WorldMap extends BasePage<IProps, IState> {
   }
 
   private async fetchWorldMap() {
-    const data = await Metric.getInstance().getWorldmapInfo()
-    this.setState({ data });
+    try {
+      const data = await Metric.getInstance().getWorldmapInfo();
+      this.setState({ data });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   private getWorldmapMarkers() {

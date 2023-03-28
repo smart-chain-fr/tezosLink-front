@@ -14,8 +14,8 @@ export type IPodType =
   | "rolling-node";
 
 type PodMetricType =
-  | "network-input"
-  | "network-output"
+  | "network-receive"
+  | "network-transmit"
   | "cpu-limit"
   | "cpu-requested"
   | "cpu-usage"

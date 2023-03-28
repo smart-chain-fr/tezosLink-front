@@ -122,59 +122,50 @@ export default class InfrastructureService extends BasePage<IProps, IState> {
   }
 
   private async getData(): Promise<void> {
-    const defaultData = {
-      total: 0,
-      running: 0,
-    };
-    let gatewayTestnetData = await Deployment.getInstance().getDeployments(
-      "testnet-tzlink-rpcgateway"
-    );
-    let gatewayMainnetData = await Deployment.getInstance().getDeployments(
-      "mainnet-tzlink-rpcgateway"
-    );
-    let apiData = await Deployment.getInstance().getDeployments("tzlink-api");
-    let rollingNodeData = await Deployment.getInstance().getDeployments(
-      "rolling-node"
-    );
-    let archiveNodeData = await Deployment.getInstance().getDeployments(
-      "archive-node"
-    );
-    let webData = await Deployment.getInstance().getDeployments("tzlink-web");
+    try {
+      const gatewayTestnetData = await Deployment.getInstance().getDeployments(
+        "testnet-tzlink-rpcgateway"
+      );
+      const gatewayMainnetData = await Deployment.getInstance().getDeployments(
+        "mainnet-tzlink-rpcgateway"
+      );
+      const apiData = await Deployment.getInstance().getDeployments("tzlink-api");
+      const rollingNodeData = await Deployment.getInstance().getDeployments(
+        "rolling-node"
+      );
+      const archiveNodeData = await Deployment.getInstance().getDeployments(
+        "archive-node"
+      );
+      const webData = await Deployment.getInstance().getDeployments("tzlink-web");
 
-    let gatewayTestnetPods = await Pod.getInstance().getPods(
-      "testnet-tzlink-rpcgateway"
-    );
-    let gatewayMainnetPods = await Pod.getInstance().getPods(
-      "mainnet-tzlink-rpcgateway"
-    );
+      const gatewayTestnetPods = await Pod.getInstance().getPods(
+        "testnet-tzlink-rpcgateway"
+      );
+      const gatewayMainnetPods = await Pod.getInstance().getPods(
+        "mainnet-tzlink-rpcgateway"
+      );
 
-    if (gatewayTestnetData.running === undefined)
-      gatewayTestnetData = defaultData;
-    if (gatewayMainnetData.running === undefined)
-      gatewayMainnetData = defaultData;
-    if (apiData.running === undefined) apiData = defaultData;
-    if (rollingNodeData.running === undefined) rollingNodeData = defaultData;
-    if (archiveNodeData.running === undefined) archiveNodeData = defaultData;
-    if (webData.running === undefined) webData = defaultData;
+      const apiPods = await Pod.getInstance().getPods("tzlink-api");
+      const rollingNodePods = await Pod.getInstance().getPods("rolling-node");
+      const archiveNodePods = await Pod.getInstance().getPods("archive-node");
+      const webPods = await Pod.getInstance().getPods("tzlink-web");
 
-    const apiPods = await Pod.getInstance().getPods("tzlink-api");
-    const rollingNodePods = await Pod.getInstance().getPods("rolling-node");
-    const archiveNodePods = await Pod.getInstance().getPods("archive-node");
-    const webPods = await Pod.getInstance().getPods("tzlink-web");
-
-    this.setState({
-      gatewayTestnetData,
-      gatewayMainnetData,
-      apiData,
-      rollingNodeData,
-      archiveNodeData,
-      webData,
-      gatewayTestnetPods,
-      gatewayMainnetPods,
-      apiPods,
-      rollingNodePods,
-      archiveNodePods,
-      webPods,
-    });
+      this.setState({
+        gatewayTestnetData,
+        gatewayMainnetData,
+        apiData,
+        rollingNodeData,
+        archiveNodeData,
+        webData,
+        gatewayTestnetPods,
+        gatewayMainnetPods,
+        apiPods,
+        rollingNodePods,
+        archiveNodePods,
+        webPods,
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 }

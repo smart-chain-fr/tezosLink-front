@@ -1,7 +1,6 @@
-
-import Status from "@/api/Status";
+import Deployment from "@/api/Deployment";
 import StatusLayout, { IProps } from "@/components/Layouts/Status";
-import { FrontendVariables } from "@/config/VariablesFront";
+import { format } from "date-fns";
 import { GetServerSideProps } from "next";
 
 export default function Route(props: IProps) {
@@ -15,50 +14,29 @@ export const getServerSideProps: GetServerSideProps<IProps> = async () => {
   };
 };
 
-async function getInstanceStatus(instance: Status, url: string) {
-  const health = await instance.getHealthByUrl(url).catch((error) => {
-    return { status: error.status };
-  });
-  const status = await instance.getStatusByUrl(url).catch((error) => {
-    return {
-      archive_node: { status: error.status },
-      rolling_node: { status: error.status },
-    };
-  });
-
-  return {
-    ProxyStatus: health.status !== 200 ? false : true,
-    ArchiveStatus:
-      status.archive_node.status !== 200 ? false : true,
-    RollingStatus:
-      status.rolling_node.status !== 200 ? false : true,
-  };
-}
-
 async function getStatus(): Promise<IProps["status"]> {
-  const variables = FrontendVariables.getInstance();
-
-
-  const instance = Status.getInstance();
-
-  const mainnetStatus = await getInstanceStatus(
-    instance,
-    variables.NEXT_PUBLIC_RPC_GATEWAY_MAINNET_URL
+  const gatewayTestnetData = await Deployment.getInstance().getDeployments(
+    "testnet-tzlink-rpcgateway"
   );
-  const testnetStatus = await getInstanceStatus(
-    instance,
-    variables.NEXT_PUBLIC_RPC_GATEWAY_TESTNET_URL
+  const gatewayMainnetData = await Deployment.getInstance().getDeployments(
+    "mainnet-tzlink-rpcgateway"
+  );
+
+  const rollingNodeData = await Deployment.getInstance().getDeployments(
+    "rolling-node"
+  );
+  const archiveNodeData = await Deployment.getInstance().getDeployments(
+    "archive-node"
   );
 
   return {
-    mainnetProxyStatus: mainnetStatus.ProxyStatus,
-    mainnetArchiveStatus: mainnetStatus.ArchiveStatus,
-    mainnetRollingStatus: mainnetStatus.RollingStatus,
-    /** @TODO */
+    mainnetProxyStatus: gatewayMainnetData.running > 1,
+    mainnetArchiveStatus: archiveNodeData.running > 1,
+    mainnetRollingStatus: rollingNodeData.running > 1,
     testnetName: "LIMANET",
-    testnetProxyStatus: testnetStatus.ProxyStatus,
-    testnetArchiveStatus: testnetStatus.ArchiveStatus,
-    testnetRollingStatus: testnetStatus.RollingStatus,
-    date: new Date(Date.now()).toISOString().slice(0, 10),
+    testnetProxyStatus: gatewayTestnetData.running > 1,
+    testnetArchiveStatus: archiveNodeData.running > 1,
+    testnetRollingStatus: rollingNodeData.running > 1,
+    date: format(new Date(), "yyyy-MM-dd - p"),
   };
 }

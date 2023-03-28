@@ -4,6 +4,10 @@
 .root {
   min-width: 384px;
 
+  @media (max-width: $screen-s) {
+    min-width: 100%;
+  }
+
   .header {
     border-radius: 6px;
     background-color: $secondaryColor;

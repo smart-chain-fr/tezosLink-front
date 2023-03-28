@@ -42,6 +42,7 @@ export default class MyRequests extends React.Component<IProps, IState> {
       
       stroke: {
         curve: "smooth",
+        width: 2,
         colors: ["#42E8E0"],
       },
       markers: {
