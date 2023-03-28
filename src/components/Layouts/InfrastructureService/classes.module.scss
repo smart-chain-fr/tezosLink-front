@@ -21,7 +21,8 @@
   .content {
     display: flex;
     flex-direction: row;
-    max-width: 1440px;
+    justify-content: flex-start;
+    max-width: 2000px;
     flex-wrap: wrap;
     gap: 24px;
     @media (max-width: $screen-s) {

@@ -24,12 +24,12 @@ export type IInfinitScrollProps = {
 	 * @description Trigger at some pixels at the bottom
 	 * @default 100px
 	 */
-	rootRef: React.RefObject<HTMLTableSectionElement>;
+	rootRef: React.RefObject<HTMLTableElement>;
 	triggerOnRestPixels: number;
 	onNext: (pendingScroll: IPendingScroll) => void;
 	children?: ReactNode;
 } & IInfinitScrollPropsBase &
-	React.HTMLAttributes<HTMLElement>;
+	React.TableHTMLAttributes<HTMLTableElement>;
 
 export type IInfinitScrollState = {};
 
@@ -41,7 +41,7 @@ export default abstract class InfinitScroll extends React.Component<IInfinitScro
 		scrollable: window.document,
 		selfScroll: false,
 		triggerOnRestPixels: 100,
-		rootRef: React.createRef<HTMLTableSectionElement>(),
+		rootRef: React.createRef<HTMLTableElement>(),
 		onNext: (pendingScroll: IPendingScroll) => {
 			pendingScroll.resolve();
 		},
@@ -61,9 +61,9 @@ export default abstract class InfinitScroll extends React.Component<IInfinitScro
 		delete attributes.rootRef;
 
 		return (
-			<tbody {...attributes} ref={this.props.rootRef}>
+			<table {...attributes} ref={this.props.rootRef} >
 				{this.props.children}
-			</tbody>
+			</table>
 		);
 	}
 
@@ -114,6 +114,8 @@ export default abstract class InfinitScroll extends React.Component<IInfinitScro
 		const scrollRest = scrollSize - clientSize - scrollStart;
 		const subjectElement = this.props.rootRef.current!;
 		const subjectElementLimit = Math.ceil(this.getBoundariesLimit(subjectElement.getBoundingClientRect()));
+
+		console.log(subjectElementLimit, scrollRest, clientSize, scrollSize, scrollStart)
 
 		if (subjectElementLimit - this.props.triggerOnRestPixels > clientSize) return;
 

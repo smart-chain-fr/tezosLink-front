@@ -2,10 +2,8 @@ import BasePage from "@Components/Layouts/Base";
 import DefaultTemplate from "@Components/LayoutTemplates/DefaultTemplate";
 import classes from "./classes.module.scss";
 
-import dynamic from "next/dynamic";
 import worldMill from "@react-jvectormap/world/worldMill.json";
-import countryCodes from "@Assets/country-codes.json";
-import Metric, { IResponseWorldMap } from "@/api/Metric";
+import dynamic from "next/dynamic";
 
 const VectorMap = dynamic(
   // @ts-ignore
@@ -14,10 +12,12 @@ const VectorMap = dynamic(
 );
 
 type IState = {
-  data: IResponseWorldMap | null;
+  markers: Marker[];
 };
 
-type IProps = {};
+type IProps = {
+  markers: Marker[];
+};
 
 type Marker = {
   name: string;
@@ -28,10 +28,8 @@ export default class WorldMap extends BasePage<IProps, IState> {
   public constructor(props: IProps) {
     super(props);
     this.state = {
-      data: null,
+      markers: this.props.markers
     };
-
-    this.getWorldmapMarkers = this.getWorldmapMarkers.bind(this);
   }
 
   public override render(): JSX.Element {
@@ -46,10 +44,10 @@ export default class WorldMap extends BasePage<IProps, IState> {
           <div className={classes["content"]}>
             <VectorMap
               map={worldMill}
-              markers={this.getWorldmapMarkers()}
+              markers={this.state.markers}
               markerStyle={{
                 initial: {
-                  fill: "#F8E23B",
+                  fill: "#42E8E0",
                   stroke: "#383f47",
                 },
               }}
@@ -60,34 +58,6 @@ export default class WorldMap extends BasePage<IProps, IState> {
     );
   }
 
-  public override async componentDidMount(): Promise<void> {
-    this.fetchWorldMap();
-  }
-
-  private async fetchWorldMap() {
-    try {
-      const data = await Metric.getInstance().getWorldmapInfo();
-      this.setState({ data });
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  private getWorldmapMarkers() {
-    const markers: Marker[] = [];
-    if (this.state.data) {
-      for (const item of this.state.data.data) {
-        const countryCode = countryCodes.ref_country_codes.find(
-          (country) => country.alpha2 === item.country
-        );
-        if (!countryCode) continue;
-        markers.push({
-          latLng: [countryCode.latitude, countryCode.longitude],
-          name: `${countryCode.country} : ${item.count}`,
-        });
-      }
-      return markers;
-    }
-    return [];
+  public override async componentDidMount(): Promise<void> { 
   }
 }

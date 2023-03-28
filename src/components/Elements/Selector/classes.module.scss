@@ -5,7 +5,6 @@
     border: none;
 
     position: relative;
-    z-index: 1;
     font-weight: 500;
     font-size: 14px;
     line-height: 20px;
@@ -51,7 +50,7 @@
 
     &>ul {
         background: #161729;
-        color: $textColor 80;
+        color: $textColor;
         border-radius: 6px;
 
         li {
@@ -70,8 +69,8 @@
         right: 0;
         bottom: 0;
         padding: 0;
-        z-index: 1;
         width: 100%;
+        z-index: 0;
         display: block;
         overflow: hidden;
         border-radius: 6px;

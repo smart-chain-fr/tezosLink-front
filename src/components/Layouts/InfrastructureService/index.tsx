@@ -9,14 +9,18 @@ type IState = {
   gatewayTestnetData: IDeploymentResponse | null;
   gatewayMainnetData: IDeploymentResponse | null;
   apiData: IDeploymentResponse | null;
-  rollingNodeData: IDeploymentResponse | null;
-  archiveNodeData: IDeploymentResponse | null;
+  mainnetRollingNodeData: IDeploymentResponse | null;
+  mainnetArchiveNodeData: IDeploymentResponse | null;
+  testnetRollingNodeData: IDeploymentResponse | null;
+  testnetArchiveNodeData: IDeploymentResponse | null;
   webData: IDeploymentResponse | null;
   gatewayTestnetPods: IPodsResponse | null;
   gatewayMainnetPods: IPodsResponse | null;
   apiPods: IPodsResponse | null;
-  rollingNodePods: IPodsResponse | null;
-  archiveNodePods: IPodsResponse | null;
+  mainnetRollingNodePods: IPodsResponse | null;
+  mainnetArchiveNodePods: IPodsResponse | null;
+  testnetRollingNodePods: IPodsResponse | null;
+  testnetArchiveNodePods: IPodsResponse | null;
   webPods: IPodsResponse | null;
 };
 
@@ -29,14 +33,18 @@ export default class InfrastructureService extends BasePage<IProps, IState> {
       gatewayTestnetData: null,
       gatewayMainnetData: null,
       apiData: null,
-      rollingNodeData: null,
-      archiveNodeData: null,
+      mainnetRollingNodeData: null,
+      mainnetArchiveNodeData: null,
+      testnetRollingNodeData: null,
+      testnetArchiveNodeData: null,
       webData: null,
       gatewayTestnetPods: null,
       gatewayMainnetPods: null,
       apiPods: null,
-      rollingNodePods: null,
-      archiveNodePods: null,
+      mainnetRollingNodePods: null,
+      mainnetArchiveNodePods: null,
+      testnetRollingNodePods: null,
+      testnetArchiveNodePods: null,
       webPods: null,
     };
   }
@@ -92,22 +100,42 @@ export default class InfrastructureService extends BasePage<IProps, IState> {
               }
             />
             <PodInfo
-              title={"Rolling"}
-              active={this.state.rollingNodeData?.running ?? null}
-              total={this.state.rollingNodeData?.total ?? null}
+              title={"Mainnet Rolling"}
+              active={this.state.mainnetRollingNodeData?.running ?? null}
+              total={this.state.mainnetRollingNodeData?.total ?? null}
               seeMoreLink={
-                this.state.rollingNodePods?.[0]
-                  ? `/pod/${this.state.rollingNodePods[0].name}`
+                this.state.mainnetRollingNodePods?.[0]
+                  ? `/pod/${this.state.mainnetRollingNodePods[0].name}`
                   : null
               }
             />
             <PodInfo
-              title={"Archive"}
-              active={this.state.archiveNodeData?.running ?? null}
-              total={this.state.archiveNodeData?.total ?? null}
+              title={"Mainnet Archive"}
+              active={this.state.mainnetArchiveNodeData?.running ?? null}
+              total={this.state.mainnetArchiveNodeData?.total ?? null}
               seeMoreLink={
-                this.state.archiveNodePods?.[0]
-                  ? `/pod/${this.state.archiveNodePods[0].name}`
+                this.state.mainnetArchiveNodePods?.[0]
+                  ? `/pod/${this.state.mainnetArchiveNodePods[0].name}`
+                  : null
+              }
+            />
+            <PodInfo
+              title={"Testnet Rolling"}
+              active={this.state.testnetRollingNodeData?.running ?? null}
+              total={this.state.testnetRollingNodeData?.total ?? null}
+              seeMoreLink={
+                this.state.testnetRollingNodePods?.[0]
+                  ? `/pod/${this.state.testnetRollingNodePods[0].name}`
+                  : null
+              }
+            />
+            <PodInfo
+              title={"Testnet Archive"}
+              active={this.state.testnetArchiveNodeData?.running ?? null}
+              total={this.state.testnetArchiveNodeData?.total ?? null}
+              seeMoreLink={
+                this.state.testnetArchiveNodePods?.[0]
+                  ? `/pod/${this.state.testnetArchiveNodePods[0].name}`
                   : null
               }
             />
@@ -130,11 +158,17 @@ export default class InfrastructureService extends BasePage<IProps, IState> {
         "mainnet-tzlink-rpcgateway"
       );
       const apiData = await Deployment.getInstance().getDeployments("tzlink-api");
-      const rollingNodeData = await Deployment.getInstance().getDeployments(
-        "rolling-node"
+      const mainnetRollingNodeData = await Deployment.getInstance().getDeployments(
+        "mainnet-rolling-node"
       );
-      const archiveNodeData = await Deployment.getInstance().getDeployments(
-        "archive-node"
+      const mainnetArchiveNodeData = await Deployment.getInstance().getDeployments(
+        "mainnet-archive-node"
+      );
+      const testnetRollingNodeData = await Deployment.getInstance().getDeployments(
+        "testnet-rolling-node"
+      );
+      const testnetArchiveNodeData = await Deployment.getInstance().getDeployments(
+        "testnet-archive-node"
       );
       const webData = await Deployment.getInstance().getDeployments("tzlink-web");
 
@@ -146,22 +180,28 @@ export default class InfrastructureService extends BasePage<IProps, IState> {
       );
 
       const apiPods = await Pod.getInstance().getPods("tzlink-api");
-      const rollingNodePods = await Pod.getInstance().getPods("rolling-node");
-      const archiveNodePods = await Pod.getInstance().getPods("archive-node");
+      const mainnetRollingNodePods = await Pod.getInstance().getPods("mainnet-rolling-node");
+      const mainnetArchiveNodePods = await Pod.getInstance().getPods("mainnet-archive-node");
+      const testnetRollingNodePods = await Pod.getInstance().getPods("testnet-rolling-node");
+      const testnetArchiveNodePods = await Pod.getInstance().getPods("testnet-archive-node");
       const webPods = await Pod.getInstance().getPods("tzlink-web");
 
       this.setState({
         gatewayTestnetData,
         gatewayMainnetData,
         apiData,
-        rollingNodeData,
-        archiveNodeData,
+        mainnetRollingNodeData,
+        mainnetArchiveNodeData,
+        testnetRollingNodeData,
+        testnetArchiveNodeData,
         webData,
         gatewayTestnetPods,
         gatewayMainnetPods,
         apiPods,
-        rollingNodePods,
-        archiveNodePods,
+        mainnetRollingNodePods,
+        mainnetArchiveNodePods,
+        testnetRollingNodePods,
+        testnetArchiveNodePods,
         webPods,
       });
     } catch (err) {

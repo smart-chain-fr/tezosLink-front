@@ -1,17 +1,22 @@
 import BaseApiService from "@/api/BaseApiService";
 import { IMetricInfrastructure, IPod } from "@/interfaces/interfaces";
 
-export type IPodsResponse = IPod[]; 
+export type IPodsResponse = IPod[];
 
-export type IPodMetricsResponse = IMetricInfrastructure[];
+export type IPodMetricsResponse = {
+  data: IMetricInfrastructure[];
+  metadata: { count: number; limit: number; page: number; total: number };
+};
 
 export type IPodType =
   | "tzlink-web"
   | "testnet-tzlink-rpcgateway"
   | "mainnet-tzlink-rpcgateway"
   | "tzlink-api"
-  | "archive-node"
-  | "rolling-node";
+  | "mainnet-archive-node"
+  | "mainnet-rolling-node"
+  | "testnet-archive-node"
+  | "testnet-rolling-node";
 
 type PodMetricType =
   | "network-receive"

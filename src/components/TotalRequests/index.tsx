@@ -13,6 +13,7 @@ import React from "react";
 import { DateRange } from "react-day-picker";
 import { Button } from "../Elements/Button";
 import DateModalSelector from "../Elements/DateModalSelector";
+import { IPendingScroll } from "../Elements/InfinitScroll";
 import InfinitScrollVertical from "../Elements/InfinitScroll/Vertical";
 import Selector from "../Elements/Selector";
 import classes from "./classes.module.scss";
@@ -22,7 +23,7 @@ import FailedChip from "./StatusChip/FailedChip";
 import SuccessfulChip from "./StatusChip/SuccessfulChip";
 
 type IState = {
-  data: IResponseRequests | null;
+  data: IResponseRequests;
   from?: Date;
   to?: Date;
   node?: string;
@@ -30,6 +31,7 @@ type IState = {
   status?: RequestStatus;
   types?: IResponsePath;
   showMobileFilters: boolean;
+  hasMoreDataToLoad: boolean;
 };
 
 export type IProps = {
@@ -38,14 +40,27 @@ export type IProps = {
 
 const NODE_PLACEHOLDER = "Select a node";
 const TYPE_PLACEHOLDER = "Select a type";
+
+const emptyData = {
+  data: [],
+  metadata: {
+    total: 0,
+    count: 0,
+    page: 0,
+    limit: 0,
+  },
+};
 export default class TotalRequest extends BasePage<IProps, IState> {
+  private _timer: NodeJS.Timeout | undefined = undefined;
+  private static PAGE_SIZE = 5;
   private contentVersion = 0;
 
   public constructor(props: IProps) {
     super(props);
     this.state = {
-      data: null,
+      data: emptyData,
       showMobileFilters: false,
+      hasMoreDataToLoad: true,
     };
 
     this.onDateChange = this.onDateChange.bind(this);
@@ -54,9 +69,10 @@ export default class TotalRequest extends BasePage<IProps, IState> {
     this.resetFilters = this.resetFilters.bind(this);
     this.renderFilters = this.renderFilters.bind(this);
     this.toggleMobileFilters = this.toggleMobileFilters.bind(this);
+    this.fetchDataOnScroll = this.fetchDataOnScroll.bind(this);
   }
 
-  private static scrollRef = React.createRef<HTMLTableSectionElement>();
+  private static scrollRef = React.createRef<HTMLTableElement>();
 
   public override render(): JSX.Element {
     return (
@@ -78,26 +94,32 @@ export default class TotalRequest extends BasePage<IProps, IState> {
               </div>
               {this.state.showMobileFilters && this.renderFilters()}
             </div>
-            <table className={classes["table"]} cellSpacing="0" cellPadding="0">
+
+            <InfinitScrollVertical
+              key={this.contentVersion}
+              onNext={this.fetchDataOnScroll}
+              triggerOnRestPixels={1}
+              rootRef={TotalRequest.scrollRef}
+              className={classes["table"]}
+              cellSpacing="0"
+              cellPadding="0"
+            >
               <thead>
                 <tr>
-                  <th className={classes["header-date"]}>DATE</th>
-                  <th className={classes["header-node"]}>NODE</th>
-                  <th className={classes["header-type-of-requests"]}>
+                  <th className={classes["date"]}>DATE</th>
+                  <th className={classes["node-type"]}>NODE</th>
+                  <th className={classes["type-of-requests"]}>
                     TYPE OF REQUESTS
                   </th>
-                  <th className={classes["header-status"]}>STATUS</th>
+                  <th className={classes["status"]}>STATUS</th>
                 </tr>
               </thead>
-              <InfinitScrollVertical
-                key={this.contentVersion}
-                onNext={() => {}}
-                triggerOnRestPixels={1}
-                rootRef={TotalRequest.scrollRef}
-              >
-                {this.state.data?.data.map((metric: IMetric) => renderRow(metric))}
-              </InfinitScrollVertical>
-            </table>
+              <tbody>
+                {this.state.data?.data.map((metric: IMetric) =>
+                  renderRow(metric)
+                )}
+              </tbody>
+            </InfinitScrollVertical>
             <div className={classes["filters-desktop"]}>
               {this.renderFilters()}
             </div>
@@ -141,8 +163,11 @@ export default class TotalRequest extends BasePage<IProps, IState> {
       node: (this.state.node as NodeType) ?? undefined,
       type: this.state.type,
       status: this.state.status,
+      _limit: TotalRequest.PAGE_SIZE,
+      _page: 1,
+      
     });
-    this.setState({ data });
+    this.setState({ data, hasMoreDataToLoad: data.data.length < data.metadata.total, });
   }
 
   private async getTypes(): Promise<void> {
@@ -230,6 +255,41 @@ export default class TotalRequest extends BasePage<IProps, IState> {
         </div>
       </div>
     );
+  }
+
+  private async fetchDataOnScroll(
+    pendingScroll?: IPendingScroll
+  ): Promise<void> {
+    this._timer = setTimeout(async () => {
+      clearTimeout(this._timer);
+      if (!this.state.hasMoreDataToLoad) {
+        pendingScroll?.reject();
+        return;
+      }
+      const paginatedResult = await Metric.getInstance().getAll({
+        projectUuid: this.props.uuid,
+        from: this.state.from?.toISOString(),
+        to: this.state.to?.toISOString(),
+        node: (this.state.node as NodeType) ?? undefined,
+        type: this.state.type,
+        status: this.state.status,
+        _limit: TotalRequest.PAGE_SIZE,
+        _page: this.state.data?.data.length / TotalRequest.PAGE_SIZE,
+      });
+
+      paginatedResult.data = [...this.state.data.data, ...paginatedResult.data];
+
+      this.setState(
+        {
+          data: paginatedResult,
+          hasMoreDataToLoad:
+            paginatedResult.data.length < paginatedResult.metadata.total,
+        },
+        () => {
+          pendingScroll?.resolve();
+        }
+      );
+    }, 300);
   }
 }
 

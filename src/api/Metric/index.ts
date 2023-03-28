@@ -26,7 +26,7 @@ export type IResponseRequests = {
   metadata: {
     count: number;
     limit: number;
-    offset: number;
+    page: number;
     total: number;
   };
 };

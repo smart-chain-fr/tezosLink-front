@@ -51,6 +51,7 @@ export default class Selector extends React.Component<IProps, IState> {
         </div>
         <ul
           style={{
+            zIndex: 1,
             transform: `translateY(-${(this.state.selectedIndex ?? 0) * 36}px)`,
           }}
         >

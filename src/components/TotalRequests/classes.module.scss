@@ -30,6 +30,7 @@
     }
 
     .filters-desktop {
+      max-width: 303px;
       @media (max-width: $screen-l) {
         display: none;
       }
@@ -50,38 +51,54 @@
     }
 
     .table {
+      overflow-x: auto;
+      display: block;
       text-align: left;
       max-height: 80vh;
-      overflow-x: auto;
       width: 100%;
       border-radius: 6px;
       background-color: $backgroundColor2;
 
       thead {
-        width: 100%;
+        position: sticky;
+        top: 0;
+        background-color: $backgroundColor2;
 
+        display: table;
+        overflow-x: none;
+        width: 100%;
         th {
           &.date {
-            width: 25%;
+            width: 20%;
+            min-width: 200px;
           }
 
           &.node-type {
             width: 10%;
+            min-width: 100px;
           }
 
           &.type-of-requests {
-            width: 45%;
+            width: 40%;
+            min-width: 300px;
           }
 
           &.status {
             width: 20%;
+            min-width: 200px;
           }
           padding: 24px;
         }
       }
 
       tbody {
+        display: table;
+        max-height: 60vh;
+        overflow-y: auto;
+        width: 100%;
         tr {
+          width: 100%;
+
           max-height: 48px;
         }
 
@@ -96,28 +113,31 @@
         border: none;
 
         td {
+          display: table-cell;
           padding: 15px 24px;
           &.date {
             color: $primaryColor;
+            width: 20%;
+            min-width: 200px;
           }
 
           &.node-type {
             color: $subTextColor;
             text-transform: uppercase;
+            width: 10%;
+            min-width: 100px;
           }
 
           &.type-of-requests {
-            width: 45%;
+            width: 40%;
+            min-width: 300px;
           }
 
           &.status {
             width: 20%;
+            min-width: 200px;
           }
         }
-      }
-
-      tr {
-        width: 100%;
       }
     }
 
