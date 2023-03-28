@@ -22,21 +22,28 @@ async function getStatus(): Promise<IProps["status"]> {
     "mainnet-tzlink-rpcgateway"
   );
 
-  const rollingNodeData = await Deployment.getInstance().getDeployments(
-    "rolling-node"
+  const mainnetRollingNodeData = await Deployment.getInstance().getDeployments(
+    "mainnet-rolling-node"
   );
-  const archiveNodeData = await Deployment.getInstance().getDeployments(
-    "archive-node"
+  const mainnetArchiveNodeData = await Deployment.getInstance().getDeployments(
+    "mainnet-archive-node"
+  );
+
+  const testnetRollingNodeData = await Deployment.getInstance().getDeployments(
+    "testnet-rolling-node"
+  );
+  const testnetArchiveNodeData = await Deployment.getInstance().getDeployments(
+    "testnet-archive-node"
   );
 
   return {
     mainnetProxyStatus: gatewayMainnetData.running > 1,
-    mainnetArchiveStatus: archiveNodeData.running > 1,
-    mainnetRollingStatus: rollingNodeData.running > 1,
+    mainnetArchiveStatus: mainnetArchiveNodeData.running > 1,
+    mainnetRollingStatus: mainnetRollingNodeData.running > 1,
     testnetName: "LIMANET",
     testnetProxyStatus: gatewayTestnetData.running > 1,
-    testnetArchiveStatus: archiveNodeData.running > 1,
-    testnetRollingStatus: rollingNodeData.running > 1,
+    testnetArchiveStatus: testnetArchiveNodeData.running > 1,
+    testnetRollingStatus: testnetRollingNodeData.running > 1,
     date: format(new Date(), "yyyy-MM-dd - p"),
   };
 }
