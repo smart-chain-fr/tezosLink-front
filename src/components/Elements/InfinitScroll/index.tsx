@@ -115,8 +115,6 @@ export default abstract class InfinitScroll extends React.Component<IInfinitScro
 		const subjectElement = this.props.rootRef.current!;
 		const subjectElementLimit = Math.ceil(this.getBoundariesLimit(subjectElement.getBoundingClientRect()));
 
-		console.log(subjectElementLimit, scrollRest, clientSize, scrollSize, scrollStart)
-
 		if (subjectElementLimit - this.props.triggerOnRestPixels > clientSize) return;
 
 		let triggerNext = false;

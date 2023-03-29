@@ -75,6 +75,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
   private static scrollRef = React.createRef<HTMLTableElement>();
 
   public override render(): JSX.Element {
+
     return (
       <DefaultTemplate title={"Total Request"}>
         <div className={classes["root"]}>
@@ -103,6 +104,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
               className={classes["table"]}
               cellSpacing="0"
               cellPadding="0"
+              // selfScroll
             >
               <thead>
                 <tr>
@@ -158,7 +160,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
       projectUuid: this.props.uuid,
       from: this.state.from?.toISOString(),
       to: this.state.to?.toISOString(),
-      node: (this.state.node as NodeType) ?? undefined,
+      node: (this.state.node?.toLowerCase() as NodeType) ?? undefined,
       type: this.state.type,
       status: this.state.status,
       _limit: TotalRequest.PAGE_SIZE,
@@ -273,7 +275,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
         projectUuid: this.props.uuid,
         from: this.state.from?.toISOString(),
         to: this.state.to?.toISOString(),
-        node: (this.state.node as NodeType) ?? undefined,
+        node: (this.state.node?.toLowerCase() as NodeType) ?? undefined,
         type: this.state.type,
         status: this.state.status,
         _limit: TotalRequest.PAGE_SIZE,
