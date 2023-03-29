@@ -25,6 +25,7 @@
     max-width: 2000px;
     flex-wrap: wrap;
     gap: 24px;
+    margin-bottom: 24px;
     @media (max-width: $screen-s) {
       flex-direction: column;
     }

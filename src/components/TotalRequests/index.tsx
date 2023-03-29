@@ -133,11 +133,9 @@ export default class TotalRequest extends BasePage<IProps, IState> {
     this.fetchData();
   }
 
-  private async onDateChange(range: DateRange) {
-    this.setState({
-      from: range.from!,
-      to: range.to!,
-    });
+  private async onDateChange(range?: DateRange) {
+    const formattedRange = range ?? { from: undefined, to: undefined };
+    this.setState(formattedRange);
   }
 
   private resetFilters() {
@@ -151,7 +149,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
   }
 
   public override async componentDidMount(): Promise<void> {
-    this.fetchData();
+    // this.fetchData();
     this.getTypes();
   }
 
@@ -165,9 +163,11 @@ export default class TotalRequest extends BasePage<IProps, IState> {
       status: this.state.status,
       _limit: TotalRequest.PAGE_SIZE,
       _page: 1,
-      
     });
-    this.setState({ data, hasMoreDataToLoad: data.data.length < data.metadata.total, });
+    this.setState({
+      data,
+      hasMoreDataToLoad: data.data.length < data.metadata.total,
+    });
   }
 
   private async getTypes(): Promise<void> {
@@ -183,7 +183,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
     return (
       <div className={classes["root-filters"]}>
         <div className={classes["filters-container"]}>
-          <div className={classes["title"]}>FILTERS (4)</div>
+          <div className={classes["title"]}>FILTERS</div>
           <div className={classes["filter-container"]}>
             <div className={classes["sub-title"]}>Date</div>
             <DateModalSelector
@@ -194,7 +194,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
           <div className={classes["filter-container"]}>
             <div className={classes["sub-title"]}>Select a node</div>
             <Selector
-              defaultOption={this.state.node}
+              value={this.state.node}
               options={[NODE_PLACEHOLDER, "Archive", "Rolling"]}
               selectCallback={(option) =>
                 this.setState({
@@ -206,7 +206,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
           <div className={classes["filter-container"]}>
             <div className={classes["sub-title"]}>Type of requests</div>
             <Selector
-              defaultOption={this.state.type}
+              value={this.state.type}
               options={[TYPE_PLACEHOLDER, ...(this.state.types ?? [])]}
               selectCallback={(option) =>
                 this.setState({
@@ -218,24 +218,27 @@ export default class TotalRequest extends BasePage<IProps, IState> {
           <div className={classes["filter-container"]}>
             <div className={classes["sub-title"]}>Select a status</div>
             <div className={classes["status-filter-container"]}>
-              <CompletedChip
-                onClick={(option) => this.setState({ status: option })}
+              {/* <CompletedChip
+                onClick={(option) => this.setState({ status: this.state.status !== option ? option : undefined})}
                 clickable={true}
                 active={this.state.status === RequestStatus.COMPLETED}
-              />
+              /> */}
               <BlacklistedChip
-                onClick={(option) => this.setState({ status: option })}
+                onClick={(option) => this.setState({ status: this.state.status !== option ? option : undefined})}
+
                 clickable={true}
                 active={this.state.status === RequestStatus.BLACKLISTED}
               />
 
               <SuccessfulChip
-                onClick={(option) => this.setState({ status: option })}
+                onClick={(option) => this.setState({ status: this.state.status !== option ? option : undefined})}
+
                 clickable={true}
                 active={this.state.status === RequestStatus.SUCCESSFUL}
               />
               <FailedChip
-                onClick={(option) => this.setState({ status: option })}
+                onClick={(option) => this.setState({ status: this.state.status !== option ? option : undefined})}
+
                 clickable={true}
                 active={this.state.status === RequestStatus.FAILED}
               />

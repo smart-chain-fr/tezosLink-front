@@ -47,7 +47,7 @@ class NewProject extends BasePage<IProps, IState> {
           <div>
             <Selector
               options={["MAINNET", "TESTNET"]}
-              defaultOption={this.state.network}
+              value={this.state.network}
               selectCallback={this.handleChangeSelector}
             />
             <InputField

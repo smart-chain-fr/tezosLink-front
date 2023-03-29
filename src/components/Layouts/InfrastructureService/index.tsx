@@ -1,5 +1,5 @@
 import Deployment, { IDeploymentResponse } from "@/api/Deployment";
-import Pod, { IPodsResponse } from "@/api/Pod";
+import Pod, { IPodsResponse, IPodType } from "@/api/Pod";
 import BasePage from "@Components/Layouts/Base";
 import DefaultTemplate from "@Components/LayoutTemplates/DefaultTemplate";
 import classes from "./classes.module.scss";
@@ -152,39 +152,39 @@ export default class InfrastructureService extends BasePage<IProps, IState> {
   private async getData(): Promise<void> {
     try {
       const gatewayTestnetData = await Deployment.getInstance().getDeployments(
-        "testnet-tzlink-rpcgateway"
+        IPodType.TESTNET_GATEWAY
       );
       const gatewayMainnetData = await Deployment.getInstance().getDeployments(
-        "mainnet-tzlink-rpcgateway"
+        IPodType.MAINNET_GATEWAY
       );
-      const apiData = await Deployment.getInstance().getDeployments("tzlink-api");
+      const apiData = await Deployment.getInstance().getDeployments(IPodType.API);
       const mainnetRollingNodeData = await Deployment.getInstance().getDeployments(
-        "mainnet-rolling-node"
+        IPodType.MAINNET_ROLLING_NODE
       );
       const mainnetArchiveNodeData = await Deployment.getInstance().getDeployments(
-        "mainnet-archive-node"
+        IPodType.MAINNET_ARCHIVE_NODE
       );
       const testnetRollingNodeData = await Deployment.getInstance().getDeployments(
-        "testnet-rolling-node"
+        IPodType.TESTNET_ROLLING_NODE
       );
       const testnetArchiveNodeData = await Deployment.getInstance().getDeployments(
-        "testnet-archive-node"
+        IPodType.TESTNET_ARCHIVE_NODE
       );
-      const webData = await Deployment.getInstance().getDeployments("tzlink-web");
+      const webData = await Deployment.getInstance().getDeployments(IPodType.WEB);
 
       const gatewayTestnetPods = await Pod.getInstance().getPods(
-        "testnet-tzlink-rpcgateway"
+        IPodType.TESTNET_GATEWAY
       );
       const gatewayMainnetPods = await Pod.getInstance().getPods(
-        "mainnet-tzlink-rpcgateway"
+        IPodType.MAINNET_GATEWAY
       );
 
-      const apiPods = await Pod.getInstance().getPods("tzlink-api");
-      const mainnetRollingNodePods = await Pod.getInstance().getPods("mainnet-rolling-node");
-      const mainnetArchiveNodePods = await Pod.getInstance().getPods("mainnet-archive-node");
-      const testnetRollingNodePods = await Pod.getInstance().getPods("testnet-rolling-node");
-      const testnetArchiveNodePods = await Pod.getInstance().getPods("testnet-archive-node");
-      const webPods = await Pod.getInstance().getPods("tzlink-web");
+      const apiPods = await Pod.getInstance().getPods(IPodType.API);
+      const mainnetRollingNodePods = await Pod.getInstance().getPods(IPodType.MAINNET_ROLLING_NODE);
+      const mainnetArchiveNodePods = await Pod.getInstance().getPods(IPodType.MAINNET_ARCHIVE_NODE);
+      const testnetRollingNodePods = await Pod.getInstance().getPods(IPodType.TESTNET_ROLLING_NODE);
+      const testnetArchiveNodePods = await Pod.getInstance().getPods(IPodType.TESTNET_ARCHIVE_NODE);
+      const webPods = await Pod.getInstance().getPods(IPodType.WEB);
 
       this.setState({
         gatewayTestnetData,

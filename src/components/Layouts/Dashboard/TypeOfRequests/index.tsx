@@ -45,6 +45,7 @@ export default class TypeOfRequests extends React.Component<IProps, IState> {
         labels: {
           colors: "#fff",
           useSeriesColors: false,
+          toggleDataSeries: false
         },
       },
       stroke: {
@@ -56,6 +57,7 @@ export default class TypeOfRequests extends React.Component<IProps, IState> {
       plotOptions: {
         expandOnClick: true,
         pie: {
+          expandOnClick: false,
           customScale: 1.05,
           donut: {
             size: "80%",

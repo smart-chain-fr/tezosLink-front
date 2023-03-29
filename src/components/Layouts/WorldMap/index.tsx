@@ -38,7 +38,7 @@ export default class WorldMap extends BasePage<IProps, IState> {
         <div className={classes["root"]}>
           <div className={classes["header"]}>
             <div className={classes["title"]}>
-              <h1>World map</h1>
+              <h1>World map requests</h1>
             </div>
           </div>
           <div className={classes["content"]}>

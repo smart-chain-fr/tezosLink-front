@@ -49,16 +49,22 @@ export default class Footer extends React.Component<IProps, IState> {
               Aymeric Bethencourt
             </a>
             <a
-              href="https://www.linkedin.com/in/adrien-boulay-2679aa113/"
+              href="https://fr.linkedin.com/in/ismail-bennis-b0a0b022/"
               target="_blank"
             >
-              Adrien Boulay
+             Ismail Bennis
             </a>
             <a
-              href="https://www.linkedin.com/in/loup-theron-b1785397/"
+              href="https://fr.linkedin.com/in/frederic-eang"
               target="_blank"
             >
-              Loup Theron
+              Frederic Eang
+            </a>
+            <a
+              href="https://www.linkedin.com/in/kevin-tan-8aaa49102/"
+              target="_blank"
+            >
+              Kevin Tan
             </a>
           </div>
         </div>

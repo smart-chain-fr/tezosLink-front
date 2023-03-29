@@ -8,26 +8,26 @@ export type IPodMetricsResponse = {
   metadata: { count: number; limit: number; page: number; total: number };
 };
 
-export type IPodType =
-  | "tzlink-web"
-  | "testnet-tzlink-rpcgateway"
-  | "mainnet-tzlink-rpcgateway"
-  | "tzlink-api"
-  | "mainnet-archive-node"
-  | "mainnet-rolling-node"
-  | "testnet-archive-node"
-  | "testnet-rolling-node";
-
-type PodMetricType =
-  | "network-receive"
-  | "network-transmit"
-  | "cpu-limit"
-  | "cpu-requested"
-  | "cpu-usage"
-  | "ram-limit"
-  | "ram-requested"
-  | "ram-usage";
-
+export enum IPodType {
+  WEB = "tzlink-web",
+  TESTNET_GATEWAY = "testnet-tzlink-rpcgateway",
+  MAINNET_GATEWAY = "mainnet-tzlink-rpcgateway",
+  API = "tzlink-api",
+  MAINNET_ARCHIVE_NODE = "mainnet-archive-node",
+  MAINNET_ROLLING_NODE = "mainnet-rolling-node",
+  TESTNET_ARCHIVE_NODE = "testnet-archive-node",
+  TESTNET_ROLLING_NODE = "testnet-rolling-node",
+}
+export enum PodMetricType {
+  NETWORK_RECEIVE = "network-receive",
+  NETWORK_TRANSMIT = "network-transmit",
+  CPU_LIMIT = "cpu-limit",
+  CPU_REQUESTED = "cpu-requested",
+  CPU_USAGE = "cpu-usage",
+  RAM_LIMIT = "ram-limit",
+  RAM_REQUESTED = "ram-requested",
+  RAM_USAGE = "ram-usage",
+}
 export default class Pod extends BaseApiService {
   private static instance: Pod;
   private baseUrl = this.getBaseUrl();

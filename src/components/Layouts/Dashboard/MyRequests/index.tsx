@@ -6,6 +6,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import Card from "@/components/Elements/Card";
 import { IResponseMyRequests } from "@/api/Metric";
+import { format } from "date-fns";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 type IProps = {
@@ -61,10 +62,20 @@ export default class MyRequests extends React.Component<IProps, IState> {
         labels: {
           useSeriesColors: true,
         },
+        itemMargin: {
+          horizontal: 20,
+          vertical: 20,
+        },
       },
       tooltip:{
         enabled: true,
         theme: 'dark',
+        //@ts-ignore
+        x: {
+          formatter: function (value: number) {
+            return format(new Date(value), "Pp");
+          },
+        },
       },
       xaxis: {
         type: "datetime",

@@ -7,13 +7,12 @@ import classes from "./classes.module.scss";
 import ArrowIcon from "@Assets/icons/arrow-bottom.svg";
 
 type IProps = {
-  onChange: (date: DateRange) => void;
+  onChange: (date?: DateRange) => void;
   value: DateRange;
 };
 
 type IState = {
   showModal?: boolean;
-  date: DateRange;
 };
 
 export default class DateModalSelector extends React.Component<IProps, IState> {
@@ -21,8 +20,10 @@ export default class DateModalSelector extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
-      date: props.value,
-    };
+      showModal: false,
+    }
+
+
     this.onChange = this.onChange.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }
@@ -34,10 +35,10 @@ export default class DateModalSelector extends React.Component<IProps, IState> {
           className={classes["show-date-picker-button"]}
           onClick={this.toggleModal}
         >
-          {!this.state.date.from && !this.state.date.to && "Select Date"}
-          {this.state.date.from && format(this.state.date.from, "PPP")}
-          {this.state.date.from && this.state.date.to && " - "}
-          {this.state.date.to && format(this.state.date.to, "PPP")}
+          {!this.props.value?.from && !this.props.value?.to && "Select Date"}
+          {this.props.value?.from && format(this.props.value?.from, "PPP")}
+          {this.props.value?.from && this.props.value?.to && " - "}
+          {this.props.value?.to && format(this.props.value?.to, "PPP")}
           <div className={classes["arrow-icon"]}>
             <Image alt="arrow icon" src={ArrowIcon} />
           </div>
@@ -48,7 +49,7 @@ export default class DateModalSelector extends React.Component<IProps, IState> {
             <div className={classes["date-picker"]}>
               <DayPicker
                 mode={"range"}
-                selected={this.state.date ?? undefined}
+                selected={this.props.value ?? undefined}
                 onSelect={this.onChange}
               />
             </div>
@@ -70,11 +71,34 @@ export default class DateModalSelector extends React.Component<IProps, IState> {
     /** The modifiers of the selected day. */
     activeModifiers: ActiveModifiers,
     e: React.MouseEvent
-  ) : DateRange {
-    const formattedRange = range ?? { to: new Date(), from: new Date() };
-    if (!formattedRange.to) formattedRange.to = formattedRange.from;
-    if (this.props.onChange) this.props.onChange(formattedRange);
-    this.setState({ date: formattedRange });
-    return formattedRange;
+  ): DateRange | undefined {
+    // if(!range){
+    //   const now = new Date().getTime();
+    //   let startOfDay = now - (now % 86400000);
+    //   let endDate = startOfDay + 86400000;
+    //   return {
+    //     from: new Date(startOfDay),
+    //     to: new Date(endDate)
+    //   }
+    // }
+    // if(!range.to){
+    //   range.to = new Date()
+    // }
+    // if(!range.from){
+    //   range.to = new Date()
+    // }
+    // if(range.from) {
+    //   let startOfDay = range.from.getTime()  - (range.from.getTime()  % 86400000);
+    //   range.from = new Date(startOfDay);
+    // }
+    // if(range.to) {
+    //   let startOfDay = range.to.getTime()  - (range.to.getTime()  % 86400000);
+    //   let endDate = startOfDay + 86400000;
+    //   range.to = new Date(endDate);
+    // }
+    
+    if (this.props.onChange) this.props.onChange(range);
+    // this.setState({ date: range });
+    return range;
   }
 }

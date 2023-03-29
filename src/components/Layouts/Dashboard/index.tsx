@@ -26,8 +26,8 @@ type IState = {
   countRequests: IResponseCountRequests | null;
   typeOfRequests: IResponseTypeOfRequests | null;
   lastRequests: IResponseRequests | null;
-  from: Date;
-  to: Date;
+  from?: Date;
+  to?: Date;
 };
 
 type IProps = {
@@ -109,39 +109,44 @@ export default class Dashboard extends BasePage<IProps, IState> {
     this.fetchData(this.state.from, this.state.to);
   }
 
-  private async onDateChange(range: DateRange) {
+  private async onDateChange(range?: DateRange) {
+    const formattedRange = range ?? { from: undefined, to: undefined}
+    if(!range){
+      const now = new Date().getTime();
+      let startOfDay = now - (now % 86400000);
+      let endDate = startOfDay + 86400000;
+      formattedRange.from = new Date(startOfDay);
+      formattedRange.to = new Date(endDate);
+    }
     this.setState(
-      {
-        from: range.from!,
-        to: range.to!,
-      },
+      formattedRange,
       () => {
         this.fetchData(this.state.from, this.state.to);
       }
     );
   }
 
-  private async fetchData(from: Date, to: Date) {
+  private async fetchData(from?: Date, to?: Date) {
     try {
       const myRequests = await Metric.getInstance().getMyRequestMetrics(
         this.props.uuid,
-        from.toISOString(),
-        to.toISOString()
+        from?.toISOString(),
+        to?.toISOString()
       );
       const countRequests = await Metric.getInstance().countRequests(
         this.props.uuid,
-        from.toISOString(),
-        to.toISOString()
+        from?.toISOString(),
+        to?.toISOString()
       );
       const typeOfRequests = await Metric.getInstance().getTypeOfRequests(
         this.props.uuid,
-        from.toISOString(),
-        to.toISOString()
+        from?.toISOString(),
+        to?.toISOString()
       );
       const lastRequests = await Metric.getInstance().getAll({
         projectUuid: this.props.uuid,
-        from: from.toISOString(),
-        to: to.toISOString(),
+        from: from?.toISOString(),
+        to: to?.toISOString(),
       });
       this.setState({
         myRequests,
