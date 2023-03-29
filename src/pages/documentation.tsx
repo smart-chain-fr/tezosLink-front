@@ -1,6 +1,7 @@
 import Documentation from "@/components/Layouts/Documentation";
 import fs from "fs";
 import matter from "gray-matter";
+import { GetServerSideProps } from "next";
 import path from "path";
 
 type IProps = {
@@ -12,8 +13,7 @@ export default function Route(props: IProps) {
   return <Documentation {...props} />;
 }
 
-export async function getStaticProps() {
-
+export const getServerSideProps: GetServerSideProps<{}> = async () => {
   const docsDirectory = path.join(process.cwd(), 'src/assets/docs');
   const contentFilePath = `${docsDirectory}/content.md`;
   const menuFilePath = `${docsDirectory}/menu.md`
@@ -30,4 +30,5 @@ export async function getStaticProps() {
       menu: menu.content,
     },
   };
-}
+  
+};
