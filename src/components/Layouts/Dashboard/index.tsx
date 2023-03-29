@@ -110,49 +110,54 @@ export default class Dashboard extends BasePage<IProps, IState> {
   }
 
   private async onDateChange(range?: DateRange) {
-    const formattedRange = range ?? { from: undefined, to: undefined}
-    if(!range){
+    const formattedRange = range ?? { from: undefined, to: undefined };
+    if (!range) {
       const now = new Date().getTime();
       let startOfDay = now - (now % 86400000);
       let endDate = startOfDay + 86400000;
       formattedRange.from = new Date(startOfDay);
       formattedRange.to = new Date(endDate);
     }
-    this.setState(
-      formattedRange,
-      () => {
-        this.fetchData(this.state.from, this.state.to);
-      }
-    );
+    this.setState(formattedRange, () => {
+      this.fetchData(this.state.from, this.state.to);
+    });
   }
 
   private async fetchData(from?: Date, to?: Date) {
     try {
-      const myRequests = await Metric.getInstance().getMyRequestMetrics(
+      const myRequests = Metric.getInstance().getMyRequestMetrics(
         this.props.uuid,
         from?.toISOString(),
         to?.toISOString()
       );
-      const countRequests = await Metric.getInstance().countRequests(
+      const countRequests = Metric.getInstance().countRequests(
         this.props.uuid,
         from?.toISOString(),
         to?.toISOString()
       );
-      const typeOfRequests = await Metric.getInstance().getTypeOfRequests(
+      const typeOfRequests = Metric.getInstance().getTypeOfRequests(
         this.props.uuid,
         from?.toISOString(),
         to?.toISOString()
       );
-      const lastRequests = await Metric.getInstance().getAll({
+      const lastRequests = Metric.getInstance().getAll({
         projectUuid: this.props.uuid,
         from: from?.toISOString(),
         to: to?.toISOString(),
       });
-      this.setState({
+
+      Promise.all([
         myRequests,
         countRequests,
         typeOfRequests,
         lastRequests,
+      ]).then((values) => {
+        this.setState({
+          myRequests: values[0],
+          countRequests: values[1],
+          typeOfRequests: values[2],
+          lastRequests: values[3],
+        });
       });
     } catch (err) {
       console.error(err);

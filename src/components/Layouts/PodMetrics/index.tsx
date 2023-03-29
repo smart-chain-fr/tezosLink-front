@@ -244,6 +244,12 @@ class PodMetrics extends BasePage<IProps, IState> {
     return {
       chart: {
         id: "basic-bar",
+        toolbar:{
+          tools:{
+            download: false,
+            pan: false,
+          }
+        },
       },
       stroke: {
         curve: "smooth",

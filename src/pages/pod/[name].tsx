@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps<IProps> = async (
     return {
       redirect: {
         permanent: false,
-        destination: "/project-not-found",
+        destination: "/pod-not-found",
       },
     };
   }  

@@ -36,9 +36,16 @@ export default class MyRequests extends React.Component<IProps, IState> {
 
   private renderContent(): JSX.Element {
     const options = {
+      
       chart: {
         id: "basic-bar",
         height: "100%",
+        toolbar:{
+          tools:{
+            download: false,
+            pan: false,
+          }
+        },
       },
       
       stroke: {
@@ -61,6 +68,9 @@ export default class MyRequests extends React.Component<IProps, IState> {
         show: true,
         labels: {
           useSeriesColors: true,
+        },
+        onItemClick: {
+          toggleDataSeries: false,
         },
         itemMargin: {
           horizontal: 20,

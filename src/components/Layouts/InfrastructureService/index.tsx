@@ -151,59 +151,62 @@ export default class InfrastructureService extends BasePage<IProps, IState> {
 
   private async getData(): Promise<void> {
     try {
-      const gatewayTestnetData = await Deployment.getInstance().getDeployments(
+      const gatewayTestnetData = Deployment.getInstance().getDeployments(
         IPodType.TESTNET_GATEWAY
       );
-      const gatewayMainnetData = await Deployment.getInstance().getDeployments(
+      const gatewayMainnetData = Deployment.getInstance().getDeployments(
         IPodType.MAINNET_GATEWAY
       );
-      const apiData = await Deployment.getInstance().getDeployments(IPodType.API);
-      const mainnetRollingNodeData = await Deployment.getInstance().getDeployments(
+      const apiData = Deployment.getInstance().getDeployments(IPodType.API);
+      const mainnetRollingNodeData = Deployment.getInstance().getDeployments(
         IPodType.MAINNET_ROLLING_NODE
       );
-      const mainnetArchiveNodeData = await Deployment.getInstance().getDeployments(
+      const mainnetArchiveNodeData = Deployment.getInstance().getDeployments(
         IPodType.MAINNET_ARCHIVE_NODE
       );
-      const testnetRollingNodeData = await Deployment.getInstance().getDeployments(
+      const testnetRollingNodeData = Deployment.getInstance().getDeployments(
         IPodType.TESTNET_ROLLING_NODE
       );
-      const testnetArchiveNodeData = await Deployment.getInstance().getDeployments(
+      const testnetArchiveNodeData = Deployment.getInstance().getDeployments(
         IPodType.TESTNET_ARCHIVE_NODE
       );
-      const webData = await Deployment.getInstance().getDeployments(IPodType.WEB);
+      const webData = Deployment.getInstance().getDeployments(IPodType.WEB);
 
-      const gatewayTestnetPods = await Pod.getInstance().getPods(
+      const gatewayTestnetPods = Pod.getInstance().getPods(
         IPodType.TESTNET_GATEWAY
       );
-      const gatewayMainnetPods = await Pod.getInstance().getPods(
+      const gatewayMainnetPods = Pod.getInstance().getPods(
         IPodType.MAINNET_GATEWAY
       );
 
-      const apiPods = await Pod.getInstance().getPods(IPodType.API);
-      const mainnetRollingNodePods = await Pod.getInstance().getPods(IPodType.MAINNET_ROLLING_NODE);
-      const mainnetArchiveNodePods = await Pod.getInstance().getPods(IPodType.MAINNET_ARCHIVE_NODE);
-      const testnetRollingNodePods = await Pod.getInstance().getPods(IPodType.TESTNET_ROLLING_NODE);
-      const testnetArchiveNodePods = await Pod.getInstance().getPods(IPodType.TESTNET_ARCHIVE_NODE);
-      const webPods = await Pod.getInstance().getPods(IPodType.WEB);
+      const apiPods = Pod.getInstance().getPods(IPodType.API);
+      const mainnetRollingNodePods = Pod.getInstance().getPods(IPodType.MAINNET_ROLLING_NODE);
+      const mainnetArchiveNodePods = Pod.getInstance().getPods(IPodType.MAINNET_ARCHIVE_NODE);
+      const testnetRollingNodePods = Pod.getInstance().getPods(IPodType.TESTNET_ROLLING_NODE);
+      const testnetArchiveNodePods = Pod.getInstance().getPods(IPodType.TESTNET_ARCHIVE_NODE);
+      const webPods = Pod.getInstance().getPods(IPodType.WEB);
 
-      this.setState({
-        gatewayTestnetData,
-        gatewayMainnetData,
-        apiData,
-        mainnetRollingNodeData,
-        mainnetArchiveNodeData,
-        testnetRollingNodeData,
-        testnetArchiveNodeData,
-        webData,
-        gatewayTestnetPods,
-        gatewayMainnetPods,
-        apiPods,
-        mainnetRollingNodePods,
-        mainnetArchiveNodePods,
-        testnetRollingNodePods,
-        testnetArchiveNodePods,
-        webPods,
-      });
+      Promise.all([gatewayMainnetData, gatewayTestnetData, apiData, mainnetRollingNodeData, mainnetArchiveNodeData, testnetRollingNodeData, testnetArchiveNodeData, webData, gatewayTestnetPods, gatewayMainnetPods, apiPods, mainnetRollingNodePods, mainnetArchiveNodePods, testnetRollingNodePods, testnetArchiveNodePods, webPods]).then((values) => {
+        this.setState({
+          gatewayTestnetData: values[0],
+          gatewayMainnetData: values[1],
+          apiData: values[2],
+          mainnetRollingNodeData: values[3],
+          mainnetArchiveNodeData: values[4],
+          testnetRollingNodeData: values[5],
+          testnetArchiveNodeData: values[6],
+          webData: values[7],
+          gatewayTestnetPods: values[8],
+          gatewayMainnetPods: values[9],
+          apiPods: values[10],
+          mainnetRollingNodePods: values[11],
+          mainnetArchiveNodePods: values[12],
+          testnetRollingNodePods: values[13],
+          testnetArchiveNodePods: values[14],
+          webPods: values[15],
+
+        })
+      })
     } catch (err) {
       console.error(err);
     }
