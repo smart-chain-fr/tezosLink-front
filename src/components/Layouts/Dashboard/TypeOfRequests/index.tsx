@@ -1,12 +1,11 @@
-import classes from "./classes.module.scss";
 import React from "react";
+import classes from "./classes.module.scss";
 
 // Dynamic import mandatory to avoid the error : window undefined
 // https://stackoverflow.com/questions/68596778/next-js-window-is-not-defined
-import dynamic from "next/dynamic";
-import Card from "@Components/Elements/Card";
 import { IResponseTypeOfRequests } from "@/api/Metric";
-import { colors } from "@/utils/colors";
+import Card from "@Components/Elements/Card";
+import dynamic from "next/dynamic";
 
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
@@ -41,7 +40,7 @@ export default class TypeOfRequests extends React.Component<IProps, IState> {
     const options = {
       // colors: colors,
       chart: {
-        height: 300,
+        // height: "500px"
       },
       labels: (this.props.typeOfRequests ?? []).map((element) => element.path),
       legend: {
@@ -158,8 +157,7 @@ export default class TypeOfRequests extends React.Component<IProps, IState> {
           options={options}
           series={series}
           type="donut"
-          height="100%"
-          width={"100%"}
+          height={300}
         />
       </div>
     );

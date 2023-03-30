@@ -150,7 +150,9 @@ export default class TotalRequest extends BasePage<IProps, IState> {
   }
 
   public override async componentDidMount(): Promise<void> {
-    if(this.scrollRef.current) this.scrollRef.current.style.maxHeight = window.innerHeight - 300 + "px";
+    if (this.scrollRef.current)
+      this.scrollRef.current.style.maxHeight =
+        Math.max(window.innerHeight - 200, 550) + "px";
     this.getTypes();
   }
 
@@ -196,10 +198,14 @@ export default class TotalRequest extends BasePage<IProps, IState> {
             <div className={classes["sub-title"]}>Select a node</div>
             <Selector
               value={this.state.node}
-              options={[NODE_PLACEHOLDER, "Archive", "Rolling"]}
+              options={[
+                { label: NODE_PLACEHOLDER, value: undefined },
+                { label: "Archive", value: "archive" },
+                { label: "Rolling", value: "rolling" },
+              ]}
               selectCallback={(option) =>
                 this.setState({
-                  node: option !== NODE_PLACEHOLDER ? option : undefined,
+                  node: option?.value,
                 })
               }
             />
@@ -208,10 +214,14 @@ export default class TotalRequest extends BasePage<IProps, IState> {
             <div className={classes["sub-title"]}>Type of requests</div>
             <Selector
               value={this.state.type}
-              options={[TYPE_PLACEHOLDER, ...(this.state.types ?? [])]}
+              options={[
+                { label: NODE_PLACEHOLDER, value: undefined },
+                { label: "Archive", value: "archive" },
+                { label: "Rolling", value: "rolling" },
+              ]}
               selectCallback={(option) =>
                 this.setState({
-                  type: option !== TYPE_PLACEHOLDER ? option : undefined,
+                  node: option?.value,
                 })
               }
             />
@@ -315,7 +325,11 @@ function renderRow(metric: IMetric) {
 
       <td className={classes["node-type"]}>{metric.node}</td>
 
-      <td className={classes["type-of-requests"]}>{metric.path.length > 50 ? metric.path.slice(0, 50) + "...": metric.path}</td>
+      <td className={classes["type-of-requests"]}>
+        {metric.path.length > 50
+          ? metric.path.slice(0, 50) + "..."
+          : metric.path}
+      </td>
       <td className={classes["status"]}>
         {renderStatus(metric.status as RequestStatus)}
       </td>

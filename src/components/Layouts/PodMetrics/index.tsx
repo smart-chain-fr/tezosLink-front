@@ -63,7 +63,9 @@ class PodMetrics extends BasePage<IProps, IState> {
             {this.state.pods?.length !== 0 && (
               <div>
                 <Selector
-                  options={(this.state.pods ?? []).map((pod) => pod.name)}
+                  options={(this.state.pods ?? []).map((pod) => {
+                    return { label: pod.name, value: pod.name };
+                  })}
                   value={this.props.podName}
                   selectCallback={this.handleChangeSelector}
                 />
@@ -234,10 +236,10 @@ class PodMetrics extends BasePage<IProps, IState> {
     }
   }
 
-  private handleChangeSelector(value?: string) {
-    if (!value || value === this.props.podName) return;
-    this.props.router.push("/pod/" + value);
-    this.fetchData(value);
+  private handleChangeSelector(option?: {label: string, value?: string}) {
+    if (!option?.value || option.value === this.props.podName) return;
+    this.props.router.push("/pod/" + option.value);
+    this.fetchData(option.value);
   }
 
   private getChartOptions(type: "cpu" | "ram" | "network") {
@@ -293,8 +295,8 @@ class PodMetrics extends BasePage<IProps, IState> {
           },
         },
         y: {
-          formatter: yFormatter
-        }
+          formatter: yFormatter,
+        },
       },
       legend: {
         show: true,
@@ -335,14 +337,20 @@ class PodMetrics extends BasePage<IProps, IState> {
         name: "Input",
         type: "line",
         data: (this.state.networkInput ?? []).map((rq) => {
-          return { x: new Date(rq.dateRequested).getTime(), y: roundNetworkValue(rq.value) };
+          return {
+            x: new Date(rq.dateRequested).getTime(),
+            y: roundNetworkValue(rq.value),
+          };
         }),
       },
       {
         name: "Output",
         type: "line",
         data: (this.state.networkOutput ?? []).map((rq) => {
-          return { x: new Date(rq.dateRequested).getTime(), y: roundNetworkValue(rq.value) };
+          return {
+            x: new Date(rq.dateRequested).getTime(),
+            y: roundNetworkValue(rq.value),
+          };
         }),
       },
     ] as ApexAxisChartSeries;

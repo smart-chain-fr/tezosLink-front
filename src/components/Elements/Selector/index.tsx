@@ -3,9 +3,9 @@ import classes from "./classes.module.scss";
 import classNames from "classnames";
 
 type IProps = {
-  options: string[];
+  options: { label: string; value?: string }[];
   value?: string;
-  selectCallback: (option: string | undefined) => void;
+  selectCallback: (option?: { label: string; value?: string }) => void;
 };
 type IState = {
   open: string;
@@ -21,7 +21,9 @@ export default class Selector extends React.Component<IProps, IState> {
   }
   public override render(): JSX.Element {
     const selectedIndex = this.props.value
-      ? this.props.options.indexOf(this.props.value)
+      ? this.props.options.findIndex(
+          (option) => option.value === this.props.value
+        )
       : undefined;
     return (
       <>
@@ -33,8 +35,8 @@ export default class Selector extends React.Component<IProps, IState> {
           onClick={this.handleClick}
         >
           <select data-menu defaultValue={selectedIndex}>
-            {this.props.options.map((option: string, key: number) => (
-              <option key={key}>{option}</option>
+            {this.props.options.map((option, key: number) => (
+              <option key={key}>{option.label}</option>
             ))}
           </select>
           <div className={classes["selector"]}>
@@ -45,8 +47,8 @@ export default class Selector extends React.Component<IProps, IState> {
                 transform: `translateY(-${(selectedIndex ?? 0) * 36}px)`,
               }}
             >
-              {this.props.options.map((option) => (
-                <li key={option}>{option}</li>
+              {this.props.options.map((option, i) => (
+                <li key={i}>{option.label}</li>
               ))}
             </ul>
           </div>
@@ -57,8 +59,8 @@ export default class Selector extends React.Component<IProps, IState> {
             }}
           >
             {this.props.options.map((option, i) => (
-              <li key={option} onClick={() => this.handleSelect(i)}>
-                {option}
+              <li key={i} onClick={() => this.handleSelect(i)}>
+                {option.label}
               </li>
             ))}
           </ul>
@@ -66,7 +68,6 @@ export default class Selector extends React.Component<IProps, IState> {
       </>
     );
   }
-
 
   private handleClick() {
     this.state.open === "open"
