@@ -6,6 +6,9 @@ import React from "react";
 import dynamic from "next/dynamic";
 import Card from "@Components/Elements/Card";
 import { IResponseTypeOfRequests } from "@/api/Metric";
+import { colors } from "@/utils/colors";
+
+
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 type IProps = {
@@ -36,16 +39,24 @@ export default class TypeOfRequests extends React.Component<IProps, IState> {
 
   private renderContent(): JSX.Element {
     const options = {
-      width: "500px",
-      labels: (this.props.typeOfRequests ?? []).map(
-        (element) => element.path
-      ),
+      // colors: colors,
+      chart: {
+        height: 300,
+      },
+      labels: (this.props.typeOfRequests ?? []).map((element) => element.path),
       legend: {
         show: true,
         labels: {
           colors: "#fff",
           useSeriesColors: false,
-          toggleDataSeries: false
+          toggleDataSeries: false,
+        },
+        //@ts-ignore
+        formatter: function (seriesName, opts) {
+          if(seriesName.length > 30){
+            return seriesName.slice(0, 30) + "...";
+          }
+          return seriesName ;
         },
       },
       stroke: {
@@ -84,29 +95,73 @@ export default class TypeOfRequests extends React.Component<IProps, IState> {
       },
       responsive: [
         {
-          breakpoint: 480,
+          breakpoint: 1440,
           options: {
             chart: {
-              width: 200,
+              height: 300,
             },
             legend: {
               position: "bottom",
+              itemMargin: {
+                horizontal: 10,
+                vertical: 10,
+              },
+            },
+          },
+        },
+        {
+          breakpoint: 440,
+          options: {
+            chart: {
+              height: 300,
+            },
+            legend: {
+              position: "bottom",
+              itemMargin: {
+                horizontal: 10,
+                vertical: 10,
+              },
+              //@ts-ignore
+              formatter: function (seriesName, opts) {
+                return seriesName.slice(0, 10) + "...";
+              },
+            },
+            plotOptions: {
+              pie: {
+                donut: {
+                 
+                  labels: {
+                    show: true,
+                    value: {
+                      color: "#42E8E0",
+                      fontSize: "30px",
+                      fontWeight: "bold",
+                    },
+                    total: {
+                      
+                      fontSize: "14px",
+                    },
+                  },
+                },
+              },
             },
           },
         },
       ],
     };
     const series = (this.props.typeOfRequests ?? []).map(
-      (element) => element._count.path
+      (element) => element.count
     );
     return (
-      <Chart
-        options={options}
-        series={series}
-        type="donut"
-        height="100%"
-        width={"100%"}
-      />
+      <div className={classes["content-container"]}>
+        <Chart
+          options={options}
+          series={series}
+          type="donut"
+          height="100%"
+          width={"100%"}
+        />
+      </div>
     );
   }
 }

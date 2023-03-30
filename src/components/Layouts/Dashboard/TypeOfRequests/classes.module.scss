@@ -4,6 +4,10 @@
 .root {
   flex: 1;
   width: 100%;
+
+  .content-container {
+    margin-top: 20px;
+  }
     .title {
         text-transform: uppercase;
         font-size: large;

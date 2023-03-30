@@ -39,10 +39,8 @@ All requests of type `/chains/main/blocks(.*?)` are accepted.
 
 >Example of valid paths:
 >- `/chains/main/blocks/head/context/contracts/<ADDRESS>/balance`
->- `/chains/main/blocks/head/context/contracts/<ADDRESS>/delegate`
 >- `/chains/main/blocks/head/context/contracts/<ADDRESS>/manager_key`
 >- `/chains/main/blocks/head/context/contracts/<ADDRESS>/counter`
->- `/chains/main/blocks/head/context/delegates/<ADDRESS>`
 >- `/chains/main/blocks/head/header`
 >- `/chains/main/blocks/head/votes/proposals`
 >- `/chains/main/blocks/head/votes/current_quorum` 

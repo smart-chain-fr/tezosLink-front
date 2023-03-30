@@ -28,7 +28,7 @@ export default class WorldMap extends BasePage<IProps, IState> {
   public constructor(props: IProps) {
     super(props);
     this.state = {
-      markers: this.props.markers
+      markers: this.props.markers,
     };
   }
 
@@ -43,12 +43,32 @@ export default class WorldMap extends BasePage<IProps, IState> {
           </div>
           <div className={classes["content"]}>
             <VectorMap
+              regionStyle={{
+                initial: {
+                  fill: "#2B2E44",
+                  stroke: "white",
+                  //@ts-ignore
+                  "stroke-width": 0.2,
+                  "stroke-opacity": 1,
+                  fillOpacity: 1,
+                },
+                hover: {
+                  fill: "#42E8E0",
+                  //@ts-ignore
+                  "fill-opacity": 0.1,
+                  stroke: "#42E8E0",
+                  "stroke-width": 0.5,
+                  "stroke-opacity": 1,
+
+                }
+              }}
+              backgroundColor="#2E3247"
               map={worldMill}
               markers={this.state.markers}
               markerStyle={{
                 initial: {
                   fill: "#42E8E0",
-                  stroke: "#383f47",
+                  stroke: "#272B40",
                 },
               }}
             />
@@ -58,6 +78,5 @@ export default class WorldMap extends BasePage<IProps, IState> {
     );
   }
 
-  public override async componentDidMount(): Promise<void> { 
-  }
+  public override async componentDidMount(): Promise<void> {}
 }

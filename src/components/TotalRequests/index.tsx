@@ -47,7 +47,7 @@ const emptyData = {
     total: 0,
     count: 0,
     page: 0,
-    limit: 0,
+    _limit: 0,
   },
 };
 export default class TotalRequest extends BasePage<IProps, IState> {
@@ -72,10 +72,9 @@ export default class TotalRequest extends BasePage<IProps, IState> {
     this.fetchDataOnScroll = this.fetchDataOnScroll.bind(this);
   }
 
-  private static scrollRef = React.createRef<HTMLTableElement>();
+  private scrollRef = React.createRef<HTMLTableElement>();
 
   public override render(): JSX.Element {
-
     return (
       <DefaultTemplate title={"Total Request"}>
         <div className={classes["root"]}>
@@ -100,11 +99,11 @@ export default class TotalRequest extends BasePage<IProps, IState> {
               key={this.contentVersion}
               onNext={this.fetchDataOnScroll}
               triggerOnRestPixels={1}
-              rootRef={TotalRequest.scrollRef}
+              rootRef={this.scrollRef}
               className={classes["table"]}
               cellSpacing="0"
               cellPadding="0"
-              // selfScroll
+              selfScroll
             >
               <thead>
                 <tr>
@@ -151,7 +150,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
   }
 
   public override async componentDidMount(): Promise<void> {
-    // this.fetchData();
+    if(this.scrollRef.current) this.scrollRef.current.style.maxHeight = window.innerHeight - 300 + "px";
     this.getTypes();
   }
 
@@ -226,21 +225,30 @@ export default class TotalRequest extends BasePage<IProps, IState> {
                 active={this.state.status === RequestStatus.COMPLETED}
               /> */}
               <BlacklistedChip
-                onClick={(option) => this.setState({ status: this.state.status !== option ? option : undefined})}
-
+                onClick={(option) =>
+                  this.setState({
+                    status: this.state.status !== option ? option : undefined,
+                  })
+                }
                 clickable={true}
                 active={this.state.status === RequestStatus.BLACKLISTED}
               />
 
               <SuccessfulChip
-                onClick={(option) => this.setState({ status: this.state.status !== option ? option : undefined})}
-
+                onClick={(option) =>
+                  this.setState({
+                    status: this.state.status !== option ? option : undefined,
+                  })
+                }
                 clickable={true}
                 active={this.state.status === RequestStatus.SUCCESSFUL}
               />
               <FailedChip
-                onClick={(option) => this.setState({ status: this.state.status !== option ? option : undefined})}
-
+                onClick={(option) =>
+                  this.setState({
+                    status: this.state.status !== option ? option : undefined,
+                  })
+                }
                 clickable={true}
                 active={this.state.status === RequestStatus.FAILED}
               />
@@ -279,7 +287,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
         type: this.state.type,
         status: this.state.status,
         _limit: TotalRequest.PAGE_SIZE,
-        _page: this.state.data?.data.length / TotalRequest.PAGE_SIZE,
+        _page: this.state.data.metadata.page + 1,
       });
 
       paginatedResult.data = [...this.state.data.data, ...paginatedResult.data];
@@ -307,7 +315,7 @@ function renderRow(metric: IMetric) {
 
       <td className={classes["node-type"]}>{metric.node}</td>
 
-      <td className={classes["type-of-requests"]}>{metric.path}</td>
+      <td className={classes["type-of-requests"]}>{metric.path.length > 50 ? metric.path.slice(0, 50) + "...": metric.path}</td>
       <td className={classes["status"]}>
         {renderStatus(metric.status as RequestStatus)}
       </td>

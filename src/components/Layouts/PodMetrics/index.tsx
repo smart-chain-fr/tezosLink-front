@@ -80,7 +80,7 @@ class PodMetrics extends BasePage<IProps, IState> {
               content={
                 <MetricInfo
                   title="Usage"
-                  options={this.getChartOptions()}
+                  options={this.getChartOptions("network")}
                   series={this.getNetworkSeries()}
                 />
               }
@@ -91,7 +91,7 @@ class PodMetrics extends BasePage<IProps, IState> {
               content={
                 <MetricInfo
                   title="Usage"
-                  options={this.getChartOptions()}
+                  options={this.getChartOptions("cpu")}
                   series={this.getCpuSeries()}
                 />
               }
@@ -102,7 +102,7 @@ class PodMetrics extends BasePage<IProps, IState> {
               content={
                 <MetricInfo
                   title="Usage"
-                  options={this.getChartOptions()}
+                  options={this.getChartOptions("ram")}
                   series={this.getRamSeries()}
                 />
               }
@@ -240,15 +240,25 @@ class PodMetrics extends BasePage<IProps, IState> {
     this.fetchData(value);
   }
 
-  private getChartOptions() {
+  private getChartOptions(type: "cpu" | "ram" | "network") {
+    let yFormatter;
+    if (type === "cpu") {
+      yFormatter = (value: number) => `${value}`;
+    }
+    if (type === "ram") {
+      yFormatter = (value: number) => `${value} MB`;
+    }
+    if (type === "network") {
+      yFormatter = (value: number) => `${value} KB`;
+    }
     return {
       chart: {
         id: "basic-bar",
-        toolbar:{
-          tools:{
+        toolbar: {
+          tools: {
             download: false,
             pan: false,
-          }
+          },
         },
       },
       stroke: {
@@ -269,10 +279,10 @@ class PodMetrics extends BasePage<IProps, IState> {
       },
       toolbar: {
         tools: {
-          download: false
+          download: false,
         },
       },
-      
+
       tooltip: {
         enabled: true,
         theme: "dark",
@@ -282,6 +292,9 @@ class PodMetrics extends BasePage<IProps, IState> {
             return format(new Date(value), "Pp");
           },
         },
+        y: {
+          formatter: yFormatter
+        }
       },
       legend: {
         show: true,
@@ -293,7 +306,6 @@ class PodMetrics extends BasePage<IProps, IState> {
           horizontal: 20,
           vertical: 10,
         },
-        
       },
       xaxis: {
         type: "datetime",
@@ -323,19 +335,18 @@ class PodMetrics extends BasePage<IProps, IState> {
         name: "Input",
         type: "line",
         data: (this.state.networkInput ?? []).map((rq) => {
-          return { x: new Date(rq.dateRequested).getTime(), y: rq.value };
+          return { x: new Date(rq.dateRequested).getTime(), y: roundNetworkValue(rq.value) };
         }),
       },
       {
         name: "Output",
         type: "line",
         data: (this.state.networkOutput ?? []).map((rq) => {
-          return { x: new Date(rq.dateRequested).getTime(), y: rq.value };
+          return { x: new Date(rq.dateRequested).getTime(), y: roundNetworkValue(rq.value) };
         }),
       },
     ] as ApexAxisChartSeries;
   }
-
 
   private getCpuSeries() {
     return [
@@ -343,27 +354,34 @@ class PodMetrics extends BasePage<IProps, IState> {
         name: "Usage",
         type: "line",
         data: (this.state.cpuUsage ?? []).map((rq) => {
-          return { x: new Date(rq.dateRequested).getTime(), y: rq.value };
+          return {
+            x: new Date(rq.dateRequested).getTime(),
+            y: roundCpuValue(rq.value),
+          };
         }),
       },
       {
         name: "Limit",
         type: "line",
         data: (this.state.cpuLimit ?? []).map((rq) => {
-          return { x: new Date(rq.dateRequested).getTime(), y: rq.value };
+          return {
+            x: new Date(rq.dateRequested).getTime(),
+            y: roundCpuValue(rq.value),
+          };
         }),
       },
       {
         name: "Request",
         type: "line",
         data: (this.state.cpuRequest ?? []).map((rq) => {
-          return { x: new Date(rq.dateRequested).getTime(), y: rq.value };
+          return {
+            x: new Date(rq.dateRequested).getTime(),
+            y: roundCpuValue(rq.value),
+          };
         }),
       },
     ] as ApexAxisChartSeries;
   }
-
-  
 
   private getRamSeries() {
     return [
@@ -371,31 +389,46 @@ class PodMetrics extends BasePage<IProps, IState> {
         name: "Usage",
         type: "line",
         data: (this.state.ramUsage ?? []).map((rq) => {
-          return { x: new Date(rq.dateRequested).getTime(), y: rq.value };
+          return {
+            x: new Date(rq.dateRequested).getTime(),
+            y: roundRamValue(rq.value),
+          };
         }),
       },
       {
         name: "Limit",
         type: "line",
         data: (this.state.ramLimit ?? []).map((rq) => {
-          return { x: new Date(rq.dateRequested).getTime(), y: rq.value };
+          return {
+            x: new Date(rq.dateRequested).getTime(),
+            y: roundRamValue(rq.value),
+          };
         }),
       },
       {
         name: "Request",
         type: "line",
         data: (this.state.ramRequest ?? []).map((rq) => {
-          return { x: new Date(rq.dateRequested).getTime(), y: rq.value };
+          return {
+            x: new Date(rq.dateRequested).getTime(),
+            y: roundRamValue(rq.value),
+          };
         }),
       },
     ] as ApexAxisChartSeries;
   }
 }
 
-// function getPodType(type: IPodType){
-//   switch(type){
-//     case IPodType.Deployment:
-//   }
-// }
+function roundRamValue(value: string) {
+  return Math.round(parseInt(value) / 10000) / 100;
+}
+
+function roundCpuValue(value: string) {
+  return Math.round(parseFloat(value) * 1000) / 1000;
+}
+
+function roundNetworkValue(value: string) {
+  return Math.round(parseInt(value) / 10) / 100;
+}
 
 export default withRouter(PodMetrics);

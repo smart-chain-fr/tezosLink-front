@@ -11,9 +11,7 @@ export type IResponseMyRequests = { date: Date; count: number }[];
 export type IResponseCountRequests = { count: number };
 
 export type IResponseTypeOfRequests = {
-  _count: {
-    path: number;
-  };
+  count: number;
   path: string;
 }[];
 
@@ -25,7 +23,7 @@ export type IResponseRequests = {
   data: IMetric[];
   metadata: {
     count: number;
-    limit: number;
+    _limit: number;
     page: number;
     total: number;
   };
