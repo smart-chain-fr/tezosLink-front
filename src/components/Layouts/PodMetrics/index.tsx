@@ -30,6 +30,8 @@ type IProps = {
   podType: string;
 } & WithRouterProps;
 
+const PAGE_SIZE = 10;
+
 class PodMetrics extends BasePage<IProps, IState> {
   public constructor(props: IProps) {
     super(props);
@@ -130,113 +132,201 @@ class PodMetrics extends BasePage<IProps, IState> {
   }
 
   private async fetchData(podName: string) {
-    const networkInput = [];
-    const networkOutput = [];
-    const cpuUsage = [];
-    const cpuRequest = [];
-    const cpuLimit = [];
-    const ramUsage = [];
-    const ramRequest = [];
-    const ramLimit = [];
-    let networkInputHasMoreDataToLoad = true;
-    let networkOutputHasMoreDataToLoad = true;
-    let cpuUsageHasMoreDataToLoad = true;
-    let cpuRequestHasMoreDataToLoad = true;
-    let cpuLimitHasMoreDataToLoad = true;
-    let ramUsageHasMoreDataToLoad = true;
-    let ramRequestHasMoreDataToLoad = true;
-    let ramLimitHasMoreDataToLoad = true;
-    let data;
     try {
-      while (networkInputHasMoreDataToLoad) {
-        data = await Pod.getInstance().getPodMetrics(
-          podName,
-          PodMetricType.NETWORK_RECEIVE
-        );
-        networkInput.push(...data.data);
-        networkInputHasMoreDataToLoad =
-          networkInput.length < data.metadata.total;
-      }
-
-      while (networkOutputHasMoreDataToLoad) {
-        data = await Pod.getInstance().getPodMetrics(
-          podName,
-          PodMetricType.NETWORK_TRANSMIT
-        );
-        networkOutput.push(...data.data);
-        networkOutputHasMoreDataToLoad =
-          networkOutput.length < data.metadata.total;
-      }
-      while (cpuUsageHasMoreDataToLoad) {
-        const data = await Pod.getInstance().getPodMetrics(
-          podName,
-          PodMetricType.CPU_USAGE
-        );
-        cpuUsage.push(...data.data);
-        cpuUsageHasMoreDataToLoad = cpuUsage.length < data.metadata.total;
-      }
-
-      while (cpuRequestHasMoreDataToLoad) {
-        const data = await Pod.getInstance().getPodMetrics(
-          podName,
-          PodMetricType.CPU_REQUESTED
-        );
-        cpuRequest.push(...data.data);
-        cpuRequestHasMoreDataToLoad = cpuRequest.length < data.metadata.total;
-      }
-
-      while (cpuLimitHasMoreDataToLoad) {
-        const data = await Pod.getInstance().getPodMetrics(
-          podName,
-          PodMetricType.CPU_LIMIT
-        );
-        cpuLimit.push(...data.data);
-        cpuLimitHasMoreDataToLoad = cpuLimit.length < data.metadata.total;
-      }
-
-      while (ramUsageHasMoreDataToLoad) {
-        const data = await Pod.getInstance().getPodMetrics(
-          podName,
-          PodMetricType.RAM_USAGE
-        );
-        ramUsage.push(...data.data);
-        ramUsageHasMoreDataToLoad = ramUsage.length < data.metadata.total;
-      }
-
-      while (ramRequestHasMoreDataToLoad) {
-        const data = await Pod.getInstance().getPodMetrics(
-          podName,
-          PodMetricType.RAM_REQUESTED
-        );
-        ramRequest.push(...data.data);
-        ramRequestHasMoreDataToLoad = ramRequest.length < data.metadata.total;
-      }
-
-      while (ramLimitHasMoreDataToLoad) {
-        const data = await Pod.getInstance().getPodMetrics(
-          podName,
-          PodMetricType.RAM_LIMIT
-        );
-        ramLimit.push(...data.data);
-        ramLimitHasMoreDataToLoad = ramLimit.length < data.metadata.total;
-      }
-
-      this.setState({
-        networkInput,
-        networkOutput,
-        cpuUsage,
-        cpuRequest,
-        cpuLimit,
-        ramUsage,
-        ramRequest,
-        ramLimit,
+      Promise.all([
+        this.fetchNetworkInput(podName),
+        this.fetchNetworkOutput(podName),
+        this.fetchCpuUsage(podName),
+        this.fetchCpuRequest(podName),
+        this.fetchCpuLimit(podName),
+        this.fetchRamUsage(podName),
+        this.fetchRamRequest(podName),
+        this.fetchRamLimit(podName),
+      ]).then((values) => {
+        this.setState({
+          networkInput: values[0],
+          networkOutput: values[1],
+          cpuUsage: values[2],
+          cpuRequest: values[3],
+          cpuLimit: values[4],
+          ramUsage: values[5],
+          ramRequest: values[6],
+          ramLimit: values[7],
+        });
       });
     } catch (err) {
       console.error(err);
     }
   }
 
-  private handleChangeSelector(option?: {label: string, value?: string}) {
+  private async fetchNetworkInput(podName: string) {
+    const networkInput = [];
+    let page = 1;
+    let data;
+    let networkInputHasMoreDataToLoad = true;
+    while (networkInputHasMoreDataToLoad) {
+      data = await Pod.getInstance().getPodMetrics({
+        podName,
+        type: PodMetricType.NETWORK_RECEIVE,
+        _limit: PAGE_SIZE,
+        _page: page,
+      });
+      networkInput.push(...data.data);
+      networkInputHasMoreDataToLoad = networkInput.length < data.metadata.total;
+      page++;
+    }
+    return networkInput;
+  }
+
+  private async fetchNetworkOutput(podName: string) {
+    const networkOutput = [];
+    let page = 1;
+    let data;
+    let networkOutputHasMoreDataToLoad = true;
+    while (networkOutputHasMoreDataToLoad) {
+      data = await Pod.getInstance().getPodMetrics(
+        {
+          podName,
+          type: PodMetricType.NETWORK_TRANSMIT,
+          _limit: PAGE_SIZE,
+          _page: page,
+        }
+      );
+      networkOutput.push(...data.data);
+      networkOutputHasMoreDataToLoad =
+        networkOutput.length < data.metadata.total;
+      page++;
+    }
+    return networkOutput;
+  }
+
+  private async fetchCpuUsage(podName: string) {
+    const cpuUsage = [];
+    let page = 1;
+    let data;
+    let cpuUsageHasMoreDataToLoad = true;
+    while (cpuUsageHasMoreDataToLoad) {
+      data = await Pod.getInstance().getPodMetrics(
+        {
+          podName,
+          type: PodMetricType.CPU_USAGE,
+          _limit: PAGE_SIZE,
+          _page: page,
+        }
+      );
+      cpuUsage.push(...data.data);
+      cpuUsageHasMoreDataToLoad = cpuUsage.length < data.metadata.total;
+      page++;
+    }
+    return cpuUsage;
+  }
+
+  private async fetchCpuLimit(podName: string) {
+    const cpuLimit = [];
+    let page = 1;
+    let data;
+    let cpuLimitHasMoreDataToLoad = true;
+    while (cpuLimitHasMoreDataToLoad) {
+      data = await Pod.getInstance().getPodMetrics(
+        {
+          podName,
+          type: PodMetricType.CPU_LIMIT,
+          _limit: PAGE_SIZE,
+          _page: page,
+        }
+      );
+      cpuLimit.push(...data.data);
+      cpuLimitHasMoreDataToLoad = cpuLimit.length < data.metadata.total;
+      page++;
+    }
+    return cpuLimit;
+  }
+
+  private async fetchCpuRequest(podName: string) {
+    const cpuRequest = [];
+    let page = 1;
+    let data;
+    let cpuRequestHasMoreDataToLoad = true;
+    while (cpuRequestHasMoreDataToLoad) {
+      data = await Pod.getInstance().getPodMetrics(
+        {
+          podName,
+          type: PodMetricType.CPU_REQUESTED,
+          _limit: PAGE_SIZE,
+          _page: page,
+        }
+      );
+      cpuRequest.push(...data.data);
+      cpuRequestHasMoreDataToLoad = cpuRequest.length < data.metadata.total;
+      page++;
+    }
+    return cpuRequest;
+  }
+
+  private async fetchRamUsage(podName: string) {
+    const ramUsage = [];
+    let page = 1;
+    let data;
+    let ramUsageHasMoreDataToLoad = true;
+    while (ramUsageHasMoreDataToLoad) {
+      data = await Pod.getInstance().getPodMetrics(
+        {
+          podName,
+          type: PodMetricType.RAM_USAGE,
+          _limit: PAGE_SIZE,
+          _page: page,
+        }
+      );
+      ramUsage.push(...data.data);
+      ramUsageHasMoreDataToLoad = ramUsage.length < data.metadata.total;
+      page++;
+    }
+    return ramUsage;
+  }
+
+  private async fetchRamLimit(podName: string) {
+    const ramLimit = [];
+    let page = 1;
+    let data;
+    let ramLimitHasMoreDataToLoad = true;
+    while (ramLimitHasMoreDataToLoad) {
+      data = await Pod.getInstance().getPodMetrics(
+        {
+          podName,
+          type: PodMetricType.RAM_LIMIT,
+          _limit: PAGE_SIZE,
+          _page: page,
+        }
+      );
+      ramLimit.push(...data.data);
+      ramLimitHasMoreDataToLoad = ramLimit.length < data.metadata.total;
+      page++;
+    }
+    return ramLimit;
+  }
+
+  private async fetchRamRequest(podName: string) {
+    const ramRequest = [];
+    let page = 1;
+    let data;
+    let ramRequestHasMoreDataToLoad = true;
+    while (ramRequestHasMoreDataToLoad) {
+      data = await Pod.getInstance().getPodMetrics(
+        {
+          podName,
+          type: PodMetricType.RAM_REQUESTED,
+          _limit: PAGE_SIZE,
+          _page: page,
+        }
+      );
+      ramRequest.push(...data.data);
+      ramRequestHasMoreDataToLoad = ramRequest.length < data.metadata.total;
+      page++;
+    }
+    return ramRequest;
+  }
+
+  private handleChangeSelector(option?: { label: string; value?: string }) {
     if (!option?.value || option.value === this.props.podName) return;
     this.props.router.push("/pod/" + option.value);
     this.fetchData(option.value);

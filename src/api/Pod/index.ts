@@ -1,6 +1,14 @@
 import BaseApiService from "@/api/BaseApiService";
 import { IMetricInfrastructure, IPod } from "@/interfaces/interfaces";
 
+export type IGetMetricQuery = {
+  podName: string;
+  type?: PodMetricType;
+  from?: string;
+  to?: string;
+  _limit?: number;
+  _page?: number;
+};
 export type IPodsResponse = IPod[];
 
 export type IPodMetricsResponse = {
@@ -65,18 +73,15 @@ export default class Pod extends BaseApiService {
     }
   }
 
-  public async getPodMetrics(
-    podName: string,
-    type?: PodMetricType,
-    from?: string,
-    to?: string
-  ): Promise<IPodMetricsResponse> {
+  public async getPodMetrics(query: IGetMetricQuery): Promise<IPodMetricsResponse> {
     const url = new URL(
-      this.podUrl.concat("/").concat(podName).concat("/metrics")
+      this.podUrl.concat("/").concat(query.podName).concat("/metrics")
     );
-    if (type) url.searchParams.set("type", type);
-    if (from) url.searchParams.set("from", from.toString());
-    if (to) url.searchParams.set("to", to.toString());
+    if (query.type) url.searchParams.set("type", query.type);
+    if (query.from) url.searchParams.set("from", query.from.toString());
+    if (query.to) url.searchParams.set("to", query.to.toString());
+    if (query._limit) url.searchParams.set("_limit", query._limit.toString());
+    if (query._page) url.searchParams.set("_page", query._page.toString());
 
     try {
       return await this.getRequest<IPodMetricsResponse>(url);
