@@ -9,6 +9,7 @@ export interface IMetric {
   dateRequested: string;
   node: string;
   status: string;
+  typeOfRequest: ITypeOfRequest;
 }
 
 export interface IMetricInfrastructure {
@@ -38,4 +39,9 @@ export interface IProject {
   updatedAt: string;
   network: string;
   metrics: IMetric[];
+}
+ 
+export interface ITypeOfRequest {
+  uuid: string;
+  path: string;
 }

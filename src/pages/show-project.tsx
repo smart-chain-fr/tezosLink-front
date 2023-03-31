@@ -1,12 +1,5 @@
-import ShowProject from "@/components/Layouts/ShowProject"
-import { GetServerSideProps } from "next";
+import ShowProject from "@/components/Layouts/ShowProject";
 
 export default function Route() {
     return <ShowProject/>
 }
-
-export const getServerSideProps: GetServerSideProps<{}> = async () => {
-    return {
-      props: {},
-    };
-  };

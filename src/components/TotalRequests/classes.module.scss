@@ -114,6 +114,8 @@
 
         td {
           display: table-cell;
+          text-overflow: ellipsis;
+          overflow: hidden;
           padding: 15px 24px;
           &.date {
             color: $primaryColor;

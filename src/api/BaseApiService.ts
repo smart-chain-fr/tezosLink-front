@@ -1,3 +1,4 @@
+import { FrontendVariables } from "@/config/VariablesFront";
 import getConfig from "next/config";
 
 
@@ -10,7 +11,7 @@ export default abstract class BaseApiService {
 	private static baseUrl: string;
 	protected constructor() {
 		const { publicRuntimeConfig } = getConfig();
-		BaseApiService.baseUrl ??= publicRuntimeConfig.NEXT_PUBLIC_API_URL;
+		BaseApiService.baseUrl ??= publicRuntimeConfig.NEXT_PUBLIC_API_URL ?? FrontendVariables.getInstance();
 	}
 
 	protected getBaseUrl() {

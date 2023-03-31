@@ -1,11 +1,11 @@
 import Metric, {
-  IResponsePath,
   IResponseRequests,
   NodeType,
-  RequestStatus,
+  RequestStatus
 } from "@/api/Metric";
+import TypeOfRequest from "@/api/TypeOfRequests";
 
-import { IMetric } from "@/interfaces/interfaces";
+import { IMetric, ITypeOfRequest } from "@/interfaces/interfaces";
 import BasePage from "@Components/Layouts/Base";
 import DefaultTemplate from "@Components/LayoutTemplates/DefaultTemplate";
 import { format } from "date-fns";
@@ -29,7 +29,7 @@ type IState = {
   node?: string;
   type?: string;
   status?: RequestStatus;
-  types?: IResponsePath;
+  types: ITypeOfRequest[];
   showMobileFilters: boolean;
   hasMoreDataToLoad: boolean;
 };
@@ -61,6 +61,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
       data: emptyData,
       showMobileFilters: false,
       hasMoreDataToLoad: true,
+      types: [],
     };
 
     this.onDateChange = this.onDateChange.bind(this);
@@ -174,7 +175,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
   }
 
   private async getTypes(): Promise<void> {
-    const types = await Metric.getInstance().getPaths();
+    const types = await TypeOfRequest.getInstance().getTypeOfRequests();
     this.setState({ types });
   }
 
@@ -215,13 +216,15 @@ export default class TotalRequest extends BasePage<IProps, IState> {
             <Selector
               value={this.state.type}
               options={[
-                { label: NODE_PLACEHOLDER, value: undefined },
-                { label: "Archive", value: "archive" },
-                { label: "Rolling", value: "rolling" },
+                { label: TYPE_PLACEHOLDER, value: undefined },
+                ...this.state.types.map((type) => ({
+                  label: type.path,
+                  value: type.uuid,
+                })),
               ]}
               selectCallback={(option) =>
                 this.setState({
-                  node: option?.value,
+                  type: option?.value,
                 })
               }
             />
@@ -326,9 +329,9 @@ function renderRow(metric: IMetric) {
       <td className={classes["node-type"]}>{metric.node}</td>
 
       <td className={classes["type-of-requests"]}>
-        {metric.path.length > 50
-          ? metric.path.slice(0, 50) + "..."
-          : metric.path}
+        {metric.typeOfRequest.path.length > 30
+          ? metric.typeOfRequest.path.slice(0, 30) + "..."
+          : metric.typeOfRequest.path}
       </td>
       <td className={classes["status"]}>
         {renderStatus(metric.status as RequestStatus)}

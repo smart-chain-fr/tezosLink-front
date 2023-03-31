@@ -46,7 +46,16 @@ class NewProject extends BasePage<IProps, IState> {
           <h1>New Project</h1>
           <div>
             <Selector
-              options={["MAINNET", "TESTNET"]}
+              options={[
+                {
+                  value: "MAINNET",
+                  label: "MAINNET",
+                },
+                {
+                  value: "TESTNET",
+                  label: "TESTNET",
+                },
+              ]}
               value={this.state.network}
               selectCallback={this.handleChangeSelector}
             />
@@ -70,8 +79,10 @@ class NewProject extends BasePage<IProps, IState> {
       </DefaultTemplate>
     );
   }
-  private handleChangeSelector(option: string | undefined) {
-    if (option !== undefined) this.setState({ network: option });
+  private handleChangeSelector(
+    option?: { value?: string; label: string }
+  ) {
+    if (option !== undefined) this.setState({ network: option.value! });
   }
 
   private handleBlur() {
