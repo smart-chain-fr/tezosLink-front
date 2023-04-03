@@ -41,7 +41,7 @@ export default function Built() {
     },
     {
       title: "SCALABLE",
-      description: <p>Our architecture supports the workload required by your project, by scaling up Tezos nodes when we see an increase of requests. The infrastructure is open-sourced in our<a href="https://github.com/octo-technology/tezos-link" target="_blank"> Github project</a></p>,
+      description: <p>Our architecture supports the workload required by your project, by scaling up Tezos nodes when we see an increase of requests. The infrastructure is open-sourced in our<a href="https://github.com/smart-chain-fr/tezosLink" target="_blank"> Github project</a></p>,
       image_src: Scalable,
       image_alt: "tezos",
       side: "right"

@@ -148,6 +148,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
       type: undefined,
       status: undefined,
     });
+    this.fetchData();
   }
 
   public override async componentDidMount(): Promise<void> {

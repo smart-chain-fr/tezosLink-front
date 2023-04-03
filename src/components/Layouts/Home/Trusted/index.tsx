@@ -20,7 +20,7 @@ export default function Trusted() {
         <Image alt="tq" src={tq} />
       </div>
       <div className={classes["button"]}>
-        <a href="mailto:beta@octo.com" target="_blank">
+        <a href="mailto:contact@smart-chain.fr" target="_blank">
           <Button text="CONTACT US FOR ENTERPRISE INFOS" icon={PlusCardIcon} />
         </a>
       </div>
