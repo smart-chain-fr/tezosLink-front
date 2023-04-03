@@ -36,27 +36,7 @@ async function getStatus(): Promise<IProps["status"]> {
   const testnetArchiveNodeData = Deployment.getInstance().getDeployments(
     IPodType.TESTNET_ARCHIVE_NODE
   );
-
-  await Promise.all([
-    gatewayMainnetData,
-    gatewayTestnetData,
-    mainnetArchiveNodeData,
-    mainnetRollingNodeData,
-    testnetArchiveNodeData,
-    testnetRollingNodeData,
-  ]).then((values) => {
-    return {
-      mainnetProxyStatus: values[0].running >= 1,
-      mainnetArchiveStatus: values[2].running >= 1,
-      mainnetRollingStatus: values[3].running >= 1,
-      testnetName: "LIMANET",
-      testnetProxyStatus: values[1].running >= 1,
-      testnetArchiveStatus: values[4].running >= 1,
-      testnetRollingStatus: values[5].running >= 1,
-      date: format(new Date(), "yyyy-MM-dd - p"),
-    };
-  });
-  return {
+  let status = {
     mainnetProxyStatus: false,
     mainnetArchiveStatus: false,
     mainnetRollingStatus: false,
@@ -66,4 +46,21 @@ async function getStatus(): Promise<IProps["status"]> {
     testnetRollingStatus: false,
     date: format(new Date(), "yyyy-MM-dd - p"),
   };
+
+  await Promise.all([
+    gatewayMainnetData,
+    gatewayTestnetData,
+    mainnetArchiveNodeData,
+    mainnetRollingNodeData,
+    testnetArchiveNodeData,
+    testnetRollingNodeData,
+  ]).then((values) => {
+    status.mainnetProxyStatus = values[0].running >= 1;
+    status.mainnetArchiveStatus = values[2].running >= 1;
+    status.mainnetRollingStatus = values[3].running >= 1;
+    status.testnetProxyStatus = values[1].running >= 1;
+    status.testnetArchiveStatus = values[4].running >= 1;
+    status.testnetRollingStatus = values[5].running >= 1;
+  });
+  return status;
 }
