@@ -172,7 +172,7 @@ class PodMetrics extends BasePage<IProps, IState> {
         _page: page,
       });
       networkInput.push(...data.data);
-      networkInputHasMoreDataToLoad = networkInput.length < data.metadata.total;
+      networkInputHasMoreDataToLoad = false;//networkInput.length < data.metadata.total;
       page++;
     }
     return networkInput;
@@ -193,8 +193,8 @@ class PodMetrics extends BasePage<IProps, IState> {
         }
       );
       networkOutput.push(...data.data);
-      networkOutputHasMoreDataToLoad =
-        networkOutput.length < data.metadata.total;
+      networkOutputHasMoreDataToLoad = false;
+        //networkOutput.length < data.metadata.total;
       page++;
     }
     return networkOutput;
@@ -215,7 +215,7 @@ class PodMetrics extends BasePage<IProps, IState> {
         }
       );
       cpuUsage.push(...data.data);
-      cpuUsageHasMoreDataToLoad = cpuUsage.length < data.metadata.total;
+      cpuUsageHasMoreDataToLoad = false;//cpuUsage.length < data.metadata.total;
       page++;
     }
     return cpuUsage;
@@ -236,7 +236,7 @@ class PodMetrics extends BasePage<IProps, IState> {
         }
       );
       cpuLimit.push(...data.data);
-      cpuLimitHasMoreDataToLoad = cpuLimit.length < data.metadata.total;
+      cpuLimitHasMoreDataToLoad = false;//cpuLimit.length < data.metadata.total;
       page++;
     }
     return cpuLimit;
@@ -257,7 +257,7 @@ class PodMetrics extends BasePage<IProps, IState> {
         }
       );
       cpuRequest.push(...data.data);
-      cpuRequestHasMoreDataToLoad = cpuRequest.length < data.metadata.total;
+      cpuRequestHasMoreDataToLoad = false;//cpuRequest.length < data.metadata.total;
       page++;
     }
     return cpuRequest;
@@ -278,7 +278,7 @@ class PodMetrics extends BasePage<IProps, IState> {
         }
       );
       ramUsage.push(...data.data);
-      ramUsageHasMoreDataToLoad = ramUsage.length < data.metadata.total;
+      ramUsageHasMoreDataToLoad = false;//ramUsage.length < data.metadata.total;
       page++;
     }
     return ramUsage;
@@ -299,7 +299,7 @@ class PodMetrics extends BasePage<IProps, IState> {
         }
       );
       ramLimit.push(...data.data);
-      ramLimitHasMoreDataToLoad = ramLimit.length < data.metadata.total;
+      ramLimitHasMoreDataToLoad = false;//ramLimit.length < data.metadata.total;
       page++;
     }
     return ramLimit;
@@ -320,7 +320,7 @@ class PodMetrics extends BasePage<IProps, IState> {
         }
       );
       ramRequest.push(...data.data);
-      ramRequestHasMoreDataToLoad = ramRequest.length < data.metadata.total;
+      ramRequestHasMoreDataToLoad = false;//ramRequest.length < data.metadata.total;
       page++;
     }
     return ramRequest;
