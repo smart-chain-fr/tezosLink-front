@@ -14,7 +14,7 @@ export default function Route(props: IProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<{}> = async () => {
-  const docsDirectory = path.join(process.cwd(), 'src/assets/docs');
+  const docsDirectory = path.join(process.cwd(), 'public');
   const contentFilePath = `${docsDirectory}/content.md`;
   const menuFilePath = `${docsDirectory}/menu.md`
 
@@ -30,5 +30,4 @@ export const getServerSideProps: GetServerSideProps<{}> = async () => {
       menu: menu.content,
     },
   };
-  
 };

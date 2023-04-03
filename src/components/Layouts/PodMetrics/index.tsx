@@ -172,7 +172,7 @@ class PodMetrics extends BasePage<IProps, IState> {
         _page: page,
       });
       networkInput.push(...data.data);
-      networkInputHasMoreDataToLoad = false;//networkInput.length < data.metadata.total;
+      networkInputHasMoreDataToLoad = false; //networkInput.length < data.metadata.total;
       page++;
     }
     return networkInput;
@@ -184,17 +184,15 @@ class PodMetrics extends BasePage<IProps, IState> {
     let data;
     let networkOutputHasMoreDataToLoad = true;
     while (networkOutputHasMoreDataToLoad) {
-      data = await Pod.getInstance().getPodMetrics(
-        {
-          podName,
-          type: PodMetricType.NETWORK_TRANSMIT,
-          _limit: PAGE_SIZE,
-          _page: page,
-        }
-      );
+      data = await Pod.getInstance().getPodMetrics({
+        podName,
+        type: PodMetricType.NETWORK_TRANSMIT,
+        _limit: PAGE_SIZE,
+        _page: page,
+      });
       networkOutput.push(...data.data);
       networkOutputHasMoreDataToLoad = false;
-        //networkOutput.length < data.metadata.total;
+      //networkOutput.length < data.metadata.total;
       page++;
     }
     return networkOutput;
@@ -206,16 +204,14 @@ class PodMetrics extends BasePage<IProps, IState> {
     let data;
     let cpuUsageHasMoreDataToLoad = true;
     while (cpuUsageHasMoreDataToLoad) {
-      data = await Pod.getInstance().getPodMetrics(
-        {
-          podName,
-          type: PodMetricType.CPU_USAGE,
-          _limit: PAGE_SIZE,
-          _page: page,
-        }
-      );
+      data = await Pod.getInstance().getPodMetrics({
+        podName,
+        type: PodMetricType.CPU_USAGE,
+        _limit: PAGE_SIZE,
+        _page: page,
+      });
       cpuUsage.push(...data.data);
-      cpuUsageHasMoreDataToLoad = false;//cpuUsage.length < data.metadata.total;
+      cpuUsageHasMoreDataToLoad = false; //cpuUsage.length < data.metadata.total;
       page++;
     }
     return cpuUsage;
@@ -227,16 +223,14 @@ class PodMetrics extends BasePage<IProps, IState> {
     let data;
     let cpuLimitHasMoreDataToLoad = true;
     while (cpuLimitHasMoreDataToLoad) {
-      data = await Pod.getInstance().getPodMetrics(
-        {
-          podName,
-          type: PodMetricType.CPU_LIMIT,
-          _limit: PAGE_SIZE,
-          _page: page,
-        }
-      );
+      data = await Pod.getInstance().getPodMetrics({
+        podName,
+        type: PodMetricType.CPU_LIMIT,
+        _limit: PAGE_SIZE,
+        _page: page,
+      });
       cpuLimit.push(...data.data);
-      cpuLimitHasMoreDataToLoad = false;//cpuLimit.length < data.metadata.total;
+      cpuLimitHasMoreDataToLoad = false; //cpuLimit.length < data.metadata.total;
       page++;
     }
     return cpuLimit;
@@ -248,16 +242,14 @@ class PodMetrics extends BasePage<IProps, IState> {
     let data;
     let cpuRequestHasMoreDataToLoad = true;
     while (cpuRequestHasMoreDataToLoad) {
-      data = await Pod.getInstance().getPodMetrics(
-        {
-          podName,
-          type: PodMetricType.CPU_REQUESTED,
-          _limit: PAGE_SIZE,
-          _page: page,
-        }
-      );
+      data = await Pod.getInstance().getPodMetrics({
+        podName,
+        type: PodMetricType.CPU_REQUESTED,
+        _limit: PAGE_SIZE,
+        _page: page,
+      });
       cpuRequest.push(...data.data);
-      cpuRequestHasMoreDataToLoad = false;//cpuRequest.length < data.metadata.total;
+      cpuRequestHasMoreDataToLoad = false; //cpuRequest.length < data.metadata.total;
       page++;
     }
     return cpuRequest;
@@ -269,16 +261,14 @@ class PodMetrics extends BasePage<IProps, IState> {
     let data;
     let ramUsageHasMoreDataToLoad = true;
     while (ramUsageHasMoreDataToLoad) {
-      data = await Pod.getInstance().getPodMetrics(
-        {
-          podName,
-          type: PodMetricType.RAM_USAGE,
-          _limit: PAGE_SIZE,
-          _page: page,
-        }
-      );
+      data = await Pod.getInstance().getPodMetrics({
+        podName,
+        type: PodMetricType.RAM_USAGE,
+        _limit: PAGE_SIZE,
+        _page: page,
+      });
       ramUsage.push(...data.data);
-      ramUsageHasMoreDataToLoad = false;//ramUsage.length < data.metadata.total;
+      ramUsageHasMoreDataToLoad = false; //ramUsage.length < data.metadata.total;
       page++;
     }
     return ramUsage;
@@ -290,16 +280,14 @@ class PodMetrics extends BasePage<IProps, IState> {
     let data;
     let ramLimitHasMoreDataToLoad = true;
     while (ramLimitHasMoreDataToLoad) {
-      data = await Pod.getInstance().getPodMetrics(
-        {
-          podName,
-          type: PodMetricType.RAM_LIMIT,
-          _limit: PAGE_SIZE,
-          _page: page,
-        }
-      );
+      data = await Pod.getInstance().getPodMetrics({
+        podName,
+        type: PodMetricType.RAM_LIMIT,
+        _limit: PAGE_SIZE,
+        _page: page,
+      });
       ramLimit.push(...data.data);
-      ramLimitHasMoreDataToLoad = false;//ramLimit.length < data.metadata.total;
+      ramLimitHasMoreDataToLoad = false; //ramLimit.length < data.metadata.total;
       page++;
     }
     return ramLimit;
@@ -311,16 +299,14 @@ class PodMetrics extends BasePage<IProps, IState> {
     let data;
     let ramRequestHasMoreDataToLoad = true;
     while (ramRequestHasMoreDataToLoad) {
-      data = await Pod.getInstance().getPodMetrics(
-        {
-          podName,
-          type: PodMetricType.RAM_REQUESTED,
-          _limit: PAGE_SIZE,
-          _page: page,
-        }
-      );
+      data = await Pod.getInstance().getPodMetrics({
+        podName,
+        type: PodMetricType.RAM_REQUESTED,
+        _limit: PAGE_SIZE,
+        _page: page,
+      });
       ramRequest.push(...data.data);
-      ramRequestHasMoreDataToLoad = false;//ramRequest.length < data.metadata.total;
+      ramRequestHasMoreDataToLoad = false; //ramRequest.length < data.metadata.total;
       page++;
     }
     return ramRequest;
@@ -356,11 +342,11 @@ class PodMetrics extends BasePage<IProps, IState> {
       stroke: {
         curve: "smooth",
         width: 2,
-        colors: ["#42E8E0", "#FCB13B"],
+        // colors: ["#42E8E0", "#FCB13B", "#3efc3b"],
       },
       markers: {
         size: 2,
-        colors: ["#42E8E0", "#FCB13B"],
+        // colors: ["#42E8E0", "#FCB13B", "#3efc3b"],
       },
       grid: {
         xaxis: {
@@ -391,7 +377,7 @@ class PodMetrics extends BasePage<IProps, IState> {
       legend: {
         show: true,
         labels: {
-          colors: ["#42E8E0", "#FCB13B"],
+          colors: "#FFF",
           useSeriesColors: true,
         },
         itemMargin: {
@@ -404,6 +390,7 @@ class PodMetrics extends BasePage<IProps, IState> {
         labels: {
           show: true,
           rotate: 0,
+          datetimeUTC: false,
           style: {
             colors: "#FFF",
           },
