@@ -36,6 +36,7 @@ async function getStatus(): Promise<IProps["status"]> {
   const testnetArchiveNodeData = Deployment.getInstance().getDeployments(
     IPodType.TESTNET_ARCHIVE_NODE
   );
+  
   let status = {
     mainnetProxyStatus: false,
     mainnetArchiveStatus: false,
