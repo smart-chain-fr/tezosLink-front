@@ -13,11 +13,10 @@ export default function ProjectName(props: IProps): JSX.Element {
   const [copySuccess, setCopySuccess] = useState("Copy to clipboard");
   const textAreaRef: RefObject<HTMLInputElement> = useRef(null);
 
-  const copyToClipboard = () => {
-    // @ts-ignore
-    textAreaRef.current.select();
+  const copyToClipboard = async () => {
+    textAreaRef.current!.select();
     setCopySuccess("Copied!");
-    navigator.clipboard.writeText(props.token);
+    await navigator.clipboard.writeText(props.token);
   };
 
   return (

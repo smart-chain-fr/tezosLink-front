@@ -6,23 +6,26 @@ Then, add the tezoslink.net RPC endpoint to your prefered Tezos JS library.
 
 > i.e with [Sotez](https://github.com/AndrewKishino/sotez) :
 >```js
-> const sotez = new Sotez('https://<NETWORK>.tezoslink.net/v1/<YOUR_PROJECT_ID>');
+> const sotez = new Sotez('https://<NETWORK>.tezoslink.net/rpc/<YOUR_PROJECT_ID>');
 > ```
 
 ## Networks
 
 Use one of these endpoints as your Tezos client provider.
 
-|NETWORK|DESCRIPTION|URL                                              |
-|-------|-----------|-------------------------------------------------|
-|Mainnet| JSON/RPC  |https://mainnet.tezoslink.net/v1/<YOUR_PROJECT_ID>|
-|Testnet| JSON/RPC  |https://testnet.tezoslink.net/v1/<YOUR_PROJECT_ID>|
+```
 
+|NETWORK|DESCRIPTION|URL                                                |
+|-------|-----------|---------------------------------------------------|
+|Mainnet| JSON/RPC  |https://mainnet.tezoslink.net/rpc/<YOUR_PROJECT_ID>|
+|Testnet| JSON/RPC  |https://testnet.tezoslink.net/rpc/<YOUR_PROJECT_ID>|
+
+```
 ## Make requests
 
 ```bash
 # Be sure to replace YOUR-PROJECT-ID with a Project ID from your Tezos Link dashboard
-$ curl https://mainnet.tezoslink.net/v1/<YOUR_PROJECT_ID>/chains/main/blocks/head
+$ curl https://mainnet.tezoslink.net/rpc/<YOUR_PROJECT_ID>/chains/main/blocks/head
 ```
 
 You should receive the last received block.

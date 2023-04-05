@@ -1,7 +1,7 @@
 import Metric, {
   IResponseRequests,
   NodeType,
-  RequestStatus
+  RequestStatus,
 } from "@/api/Metric";
 import TypeOfRequest from "@/api/TypeOfRequests";
 
@@ -52,7 +52,7 @@ const emptyData = {
 };
 export default class TotalRequest extends BasePage<IProps, IState> {
   private _timer: NodeJS.Timeout | undefined = undefined;
-  private static PAGE_SIZE = 5;
+  private static PAGE_SIZE = 20;
   private contentVersion = 0;
 
   public constructor(props: IProps) {
@@ -131,8 +131,8 @@ export default class TotalRequest extends BasePage<IProps, IState> {
     );
   }
 
-  private submitFilters() {
-    this.fetchData();
+  private async submitFilters() {
+    await this.fetchData();
   }
 
   private async onDateChange(range?: DateRange) {
@@ -140,7 +140,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
     this.setState(formattedRange);
   }
 
-  private resetFilters() {
+  private async resetFilters() {
     this.setState({
       from: undefined,
       to: undefined,
@@ -148,7 +148,7 @@ export default class TotalRequest extends BasePage<IProps, IState> {
       type: undefined,
       status: undefined,
     });
-    this.fetchData();
+    await this.fetchData();
   }
 
   public override async componentDidMount(): Promise<void> {

@@ -19,7 +19,7 @@ export default function Panels() {
           <Image className="arrow" alt="arrow" src={ArrowBlackIcon} />
         </div>
       </Link>
-      <a href="mailto:beta@octo.com" target="_blank">
+      <a href="mailto:contact@smart-chain.fr" target="_blank">
         <div className={classes["panel2"]}>
           <Image className="logo" alt="books" src={SupportIcon} />
           <div>
