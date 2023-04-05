@@ -6,7 +6,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import Card from "@/components/Elements/Card";
 import { IResponseMyRequests } from "@/api/Metric";
-import { format } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 type IProps = {
@@ -83,12 +83,13 @@ export default class MyRequests extends React.Component<IProps, IState> {
         //@ts-ignore
         x: {
           formatter: function (value: number) {
-            return format(new Date(value), "Pp");
+            return utcToZonedTime(new Date(value), "UTC").toLocaleString();
           },
         },
       },
       xaxis: {
         type: "datetime",
+        datetimeUTC: true,
         labels: {
           show: true,
           rotate: 0,
@@ -122,6 +123,7 @@ export default class MyRequests extends React.Component<IProps, IState> {
           type="line"
           height="95%"
           width="100%"
+          
         />
     );
   }
