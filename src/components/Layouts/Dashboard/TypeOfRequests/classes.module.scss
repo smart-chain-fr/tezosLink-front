@@ -1,0 +1,25 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+  flex: 1;
+  width: 100%;
+
+  .content-container {
+    margin-top: 20px;
+  }
+    .title {
+        text-transform: uppercase;
+        font-size: large;
+        margin-left: 10px;
+        color: white;
+    }
+
+      .container {
+        color: white;
+        
+      }
+      
+
+      
+}

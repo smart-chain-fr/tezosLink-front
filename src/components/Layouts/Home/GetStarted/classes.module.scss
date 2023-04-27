@@ -1,0 +1,38 @@
+@import "@Themes/constants.scss";
+
+.root {
+    text-align: center;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    height: 300px;
+
+    h1 {
+        padding-top: 100px;
+    }
+
+    img.left {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 300px;
+    }
+
+    img.right {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 300px;
+        transform: scaleX(-1);
+    }
+
+    @media (max-width: 900px) {
+        display: none;
+    }
+
+    .button {
+        margin-top: 20px;
+        width: 200px;
+    }
+}

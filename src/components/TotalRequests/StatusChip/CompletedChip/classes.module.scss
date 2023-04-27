@@ -1,0 +1,39 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Proxima Nova";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  border: 1px solid $borderColor;
+  border-radius: 24px;
+  width: 94px;
+  height: 25px;
+
+  background-color: $backgroundColor;
+
+  &[data-clickable="true"] {
+    cursor: pointer;
+    border: 1px solid $borderColor;
+    border-radius: 6px;
+    width: 119.5px;
+    padding: 9px 25.5px;
+    height: 35px;
+  }
+
+  &[data-active="true"] {
+    background: rgba(66, 182, 232, 0.1);
+    border-color: #42b6e8;
+  }
+
+
+  .content {
+    text-transform: capitalize;
+  }
+}

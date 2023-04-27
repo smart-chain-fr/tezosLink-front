@@ -1,0 +1,79 @@
+@import "@Themes/constants.scss";
+
+.root {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 40px;
+    width: 1140px;
+    max-width: 90vw;
+    margin: 50px auto;
+    padding: 0 20px;
+
+
+    @media (max-width: 900px) {
+        display: none;
+    }
+
+    .panel1 {
+        height: 200px;
+        max-width: 90vw;
+        background-color: $primaryColor;
+        display: grid;
+        grid-template-columns: 70px auto 30px;
+        grid-gap: 40px;
+        padding: 65px 45px;
+        color: #000;
+
+        h3 {
+            font-size: 20px;
+            margin: 10px 0 0 0;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .logo {
+            width: 70px;
+            height: auto;
+        }
+
+        .arrow {
+            margin-top: 17px;
+            width: 30px;
+        }
+    }
+
+    .panel2 {
+        height: 200px;
+        max-width: 90vw;
+        background-color: $backgroundColor2;
+        display: grid;
+        grid-template-columns: 70px auto 30px;
+        grid-gap: 40px;
+        padding: 65px 45px;
+
+        h3 {
+            font-size: 20px;
+            margin: 10px 0 0 0;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .logo {
+            width: 70px;
+            height: auto;
+        }
+
+        .arrow {
+            margin-top: 17px;
+            width: 30px;
+        }
+    }
+}

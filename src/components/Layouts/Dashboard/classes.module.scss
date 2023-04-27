@@ -1,0 +1,69 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+  .header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 14px;
+    .title {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      align-items: center;
+
+      @media (max-width: $screen-m) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .container-network {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 24px;
+      }
+    }
+
+    .network-button-container {
+      width: 150px;
+      // color: $backgroundColor;
+      // background-color: $primaryColor;
+      // height: 36px;
+      // text-align: center;
+      // border: none;
+      // font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
+      // font-weight: normal;
+      // font-size: 14px;
+      // border-radius: 6px;
+      // will-change: box-shadow;
+      // width: 100%;
+      // user-select: none;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 24px;
+
+    .container-row {
+      display: flex;
+      align-items: stretch;
+      flex-direction: row;
+      gap: 24px;
+      width: 100%;
+
+      @media (max-width: $screen-m) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  }
+}

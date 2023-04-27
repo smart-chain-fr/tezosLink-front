@@ -1,0 +1,17 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+    flex-basis: 50%;
+    width: 100%;
+    will-change: opacity, transform;
+    animation: fadeInFromLeftf 500ms;
+    border-radius: 6px;
+    background: $backgroundColor2;
+
+    .title {
+        text-transform: uppercase;
+        font-size: large;
+        margin-bottom: 15px;
+    }
+}

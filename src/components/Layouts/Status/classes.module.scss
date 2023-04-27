@@ -1,0 +1,25 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+  max-width: 840px;
+  
+  margin: 200px auto 0px auto;
+  will-change: opacity, transform;
+  animation: fadeInFromLeft 500ms;
+
+
+  .content {
+
+    .title {
+        margin-bottom: 24px;
+    }
+    padding: 20px 20px 10px 20px;
+
+
+    border-radius: 6px;
+    background: $backgroundColor2;
+    box-shadow: 0 1px 10px $shadowColor 80;
+    margin: auto;
+  }
+}

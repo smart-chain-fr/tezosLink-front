@@ -1,0 +1,33 @@
+@import "@Themes/constants.scss";
+
+.root {
+  background-color: $backgroundColor3;
+  width: 100%;
+
+
+  .grid {
+    width: 100%;
+    max-width: 1280px;
+    margin: auto;
+    padding: 50px 0;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
+    grid-gap: 30px;
+    font-family: 'Proxima Nova';
+
+    a {
+      text-decoration: underline !important;
+      display: block;
+      line-height: 20px;
+    }
+
+    @media (max-width: 900px) {
+      grid-template-columns: auto;
+      text-align: center;
+
+      img {
+        margin: auto;
+      }
+    }
+  }
+}

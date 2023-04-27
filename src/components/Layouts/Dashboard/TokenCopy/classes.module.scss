@@ -1,0 +1,14 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+    will-change: opacity, transform;
+    animation: fadeInFromLeft 500ms;
+    margin: 0 0 15px 0;
+
+    .title {
+        text-transform: uppercase;
+        font-size: large;
+        margin-bottom: 15px;
+    }
+}

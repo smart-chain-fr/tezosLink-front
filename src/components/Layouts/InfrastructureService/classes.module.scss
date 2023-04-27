@@ -1,0 +1,33 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+  .header {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 14px;
+    .title {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    max-width: 2000px;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 24px;
+    @media (max-width: $screen-s) {
+      flex-direction: column;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+  .header {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 14px;
+    align-items: center;
+
+    .title {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+      text-transform: capitalize;
+    }
+  }
+
+  .sub-header {
+    border-radius: 6px;
+    background: $secondaryColor;
+    width: 100%;
+    padding: 10px 20px;
+    margin-bottom: 16px;
+    
+  }
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 24px;
+
+    .network-usage-container {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+  }
+}

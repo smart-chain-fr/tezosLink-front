@@ -1,0 +1,43 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+  flex: 1;
+  width: 100%;
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .list {
+      list-style: none;
+      overflow: hidden;
+      margin-bottom: 29px;
+    }
+  
+    .item {
+      font-family: "Proxima Nova";
+      font-style: normal;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 17px;
+      margin: 5px 5px 5px 0px;
+      padding: 10px;
+  
+      background-color: $secondaryColor;
+      border-radius: 2px;
+      color: #d4d4d4;
+      border-right: 2px solid $primaryColor;
+  
+    }
+  
+    .link {
+      text-decoration: underline;
+      color: $primaryColor;
+      a,
+      a:visited {
+        color: $primaryColor;
+      }
+    }
+  }
+}

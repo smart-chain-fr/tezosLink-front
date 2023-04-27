@@ -1,0 +1,15 @@
+@import "@Themes/constants.scss";
+@import "@Themes/animation.scss";
+
+.root {
+    flex-grow: 1;
+    height: 100%;
+    width: 100%;
+    .title {
+        text-transform: uppercase;
+        font-size: large;
+        margin-left: 10px;
+        color: white;
+    }
+
+}

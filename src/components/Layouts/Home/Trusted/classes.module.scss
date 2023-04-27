@@ -1,0 +1,42 @@
+@import "@Themes/constants.scss";
+
+.root {
+    text-align: center;
+    margin-top: 0;
+    padding: 0 20px;
+  
+    .button {
+      margin: 100px auto;
+      width: 350px;
+  
+      @media (max-width: 900px) {
+        max-width: 90vw;
+      }
+    }
+  
+  
+  .grid {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin: 0 15%;
+    justify-content: space-around;
+  
+    img {
+      max-width: 200px;
+      height: auto;
+    }
+  
+    @media (max-width: 900px) {
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: auto;
+      justify-content: initial;
+  
+      img {
+        max-width: 70vw;
+        margin: auto;
+      }
+    }
+  }
+}
